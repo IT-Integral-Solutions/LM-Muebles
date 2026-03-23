@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leo Marano Muebles × IT-Integral Solutions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --wood: #A0622A;
+    --wood-light: #D4935C;
+    --wood-pale: #F7EDE2;
+    --coal: #1A1714;
+    --charcoal: #2D2925;
+    --mid: #6B5E52;
+    --border: #E8DACE;
+    --white: #FDFAF7;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--white);
+    color: var(--coal);
+    line-height: 1.6;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(253,250,247,0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+  .nav-logo { display: flex; align-items: center; gap: 1.5rem; }
+  .nav-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem; font-weight: 700;
+    letter-spacing: 0.08em; color: var(--coal);
+  }
+  .nav-sep { width: 1px; height: 24px; background: var(--border); }
+  .nav-it { font-size: 0.75rem; font-weight: 500; color: var(--mid); letter-spacing: 0.06em; }
+  .nav-cta {
+    font-size: 0.8rem; font-weight: 600; letter-spacing: 0.06em;
+    color: var(--wood); text-decoration: none; padding: 8px 20px;
+    border: 1.5px solid var(--wood); border-radius: 100px;
+    transition: all 0.2s;
+  }
+  .nav-cta:hover { background: var(--wood); color: #fff; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 7rem 3rem 5rem;
+    position: relative; overflow: hidden;
+    background: var(--coal);
+  }
+  .hero-grid {
+    position: absolute; inset: 0; opacity: 0.04;
+    background-image: linear-gradient(var(--wood-light) 1px, transparent 1px),
+      linear-gradient(90deg, var(--wood-light) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  .hero-tag {
+    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.18em;
+    color: var(--wood-light); text-transform: uppercase; margin-bottom: 2rem;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .hero-tag::before {
+    content: ''; display: block; width: 40px; height: 1.5px; background: var(--wood-light);
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.6rem, 6vw, 5.2rem);
+    font-weight: 700; line-height: 1.08;
+    color: #fff; max-width: 780px; margin-bottom: 1.8rem;
+  }
+  .hero h1 em {
+    font-style: italic; color: var(--wood-light);
+  }
+  .hero-sub {
+    font-size: 1.1rem; color: rgba(255,255,255,0.55);
+    max-width: 520px; margin-bottom: 3rem; font-weight: 300;
+  }
+  .hero-pills { display: flex; flex-wrap: wrap; gap: 10px; }
+  .pill {
+    font-size: 0.75rem; font-weight: 500; letter-spacing: 0.04em;
+    padding: 7px 18px; border-radius: 100px;
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.65);
+  }
+  .hero-scroll {
+    position: absolute; bottom: 2.5rem; left: 3rem;
+    font-size: 0.72rem; letter-spacing: 0.12em; color: rgba(255,255,255,0.3);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .hero-scroll::after {
+    content: ''; display: block; width: 50px; height: 1px;
+    background: rgba(255,255,255,0.2);
+  }
+
+  /* SECTION BASE */
+  section { padding: 6rem 3rem; }
+  .section-tag {
+    font-size: 0.7rem; font-weight: 600; letter-spacing: 0.18em;
+    color: var(--wood); text-transform: uppercase; margin-bottom: 0.8rem;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-tag::before {
+    content: ''; width: 24px; height: 1.5px; background: var(--wood);
+  }
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700; line-height: 1.15; margin-bottom: 1rem; color: var(--coal);
+  }
+  h2 em { font-style: italic; color: var(--wood); }
+  .section-intro {
+    font-size: 1.05rem; color: var(--mid);
+    max-width: 600px; margin-bottom: 3.5rem;
+  }
+
+  /* DIAGNÓSTICO */
+  .diagnostico { background: var(--wood-pale); }
+  .diag-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5px; background: var(--border);
+  }
+  .diag-card {
+    background: var(--white); padding: 2rem;
+    transition: transform 0.2s;
+  }
+  .diag-card:hover { transform: translateY(-3px); }
+  .diag-icon {
+    width: 44px; height: 44px; border-radius: 10px;
+    background: #fff; border: 1.5px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem; margin-bottom: 1.2rem;
+  }
+  .diag-card h3 {
+    font-size: 0.95rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--coal);
+  }
+  .diag-card p { font-size: 0.875rem; color: var(--mid); }
+  .diag-status {
+    display: inline-block; margin-top: 1rem;
+    font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em;
+    padding: 4px 12px; border-radius: 100px;
+  }
+  .status-red { background: #FDECEA; color: #C0392B; }
+  .status-yellow { background: #FEF9E7; color: #B7770D; }
+
+  /* SISTEMAS */
+  .sistemas-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+  .sistema-card {
+    background: #fff; border: 1px solid var(--border);
+    border-radius: 16px; padding: 2.2rem;
+    transition: all 0.25s; position: relative; overflow: hidden;
+  }
+  .sistema-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0;
+    height: 3px; background: var(--wood); transform: scaleX(0);
+    transform-origin: left; transition: transform 0.3s;
+  }
+  .sistema-card:hover::before { transform: scaleX(1); }
+  .sistema-card:hover { border-color: var(--wood-light); box-shadow: 0 8px 30px rgba(160,98,42,0.08); }
+  .sistema-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem; font-weight: 700; color: var(--border);
+    line-height: 1; margin-bottom: 0.5rem; display: block;
+  }
+  .sistema-label {
+    font-size: 0.7rem; font-weight: 600; letter-spacing: 0.14em;
+    color: var(--wood); text-transform: uppercase; margin-bottom: 0.8rem;
+  }
+  .sistema-card h3 {
+    font-size: 1.25rem; font-weight: 600; margin-bottom: 0.8rem;
+    color: var(--coal); line-height: 1.3;
+  }
+  .sistema-card p { font-size: 0.875rem; color: var(--mid); margin-bottom: 1.5rem; }
+  .feature-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+  .feature-list li {
+    font-size: 0.82rem; color: var(--charcoal);
+    display: flex; align-items: flex-start; gap: 10px;
+  }
+  .feature-list li::before {
+    content: '✓'; color: var(--wood); font-weight: 700;
+    font-size: 0.75rem; margin-top: 1px; flex-shrink: 0;
+  }
+  .sistema-badge {
+    display: inline-block; margin-top: 1.5rem;
+    font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em;
+    padding: 5px 14px; border-radius: 100px;
+    background: var(--wood-pale); color: var(--wood);
+  }
+
+  /* HIGHLIGHT CARD */
+  .sistema-card.highlight {
+    background: var(--coal); border-color: var(--coal);
+    color: #fff;
+  }
+  .sistema-card.highlight .sistema-num { color: rgba(255,255,255,0.12); }
+  .sistema-card.highlight .sistema-label { color: var(--wood-light); }
+  .sistema-card.highlight h3 { color: #fff; }
+  .sistema-card.highlight p { color: rgba(255,255,255,0.55); }
+  .sistema-card.highlight .feature-list li { color: rgba(255,255,255,0.8); }
+  .sistema-card.highlight .feature-list li::before { color: var(--wood-light); }
+  .sistema-card.highlight .sistema-badge { background: rgba(255,255,255,0.1); color: var(--wood-light); }
+  .sistema-card.highlight::before { background: var(--wood-light); transform: scaleX(1); }
+
+  /* ROI */
+  .roi { background: var(--coal); color: #fff; }
+  .roi h2 { color: #fff; }
+  .roi-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1px; background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; overflow: hidden;
+    margin-bottom: 3rem;
+  }
+  .roi-item { background: var(--coal); padding: 2rem; text-align: center; }
+  .roi-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem; font-weight: 700; color: var(--wood-light);
+    display: block; line-height: 1;
+  }
+  .roi-label { font-size: 0.8rem; color: rgba(255,255,255,0.45); margin-top: 0.5rem; }
+
+  /* ROADMAP */
+  .roadmap-list { display: flex; flex-direction: column; gap: 0; }
+  .roadmap-item {
+    display: grid; grid-template-columns: 120px 1fr;
+    border-bottom: 1px solid var(--border);
+    padding: 2rem 0; gap: 2rem; align-items: start;
+  }
+  .roadmap-item:last-child { border-bottom: none; }
+  .roadmap-fase {
+    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em;
+    color: var(--wood); text-transform: uppercase;
+    padding-top: 4px;
+  }
+  .roadmap-content h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.4rem; }
+  .roadmap-content p { font-size: 0.875rem; color: var(--mid); }
+  .roadmap-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 0.8rem; }
+  .rtag {
+    font-size: 0.7rem; font-weight: 500; padding: 4px 12px;
+    border-radius: 100px; background: var(--wood-pale); color: var(--wood);
+  }
+
+  /* CTA FINAL */
+  .cta-final {
+    background: var(--wood); color: #fff; text-align: center;
+    padding: 6rem 3rem;
+  }
+  .cta-final h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    color: #fff; margin-bottom: 1rem;
+  }
+  .cta-final p {
+    font-size: 1.1rem; color: rgba(255,255,255,0.75);
+    max-width: 500px; margin: 0 auto 2.5rem;
+  }
+  .cta-btns { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }
+  .btn-white {
+    background: #fff; color: var(--wood);
+    font-weight: 600; font-size: 0.9rem;
+    padding: 14px 32px; border-radius: 100px;
+    text-decoration: none; transition: all 0.2s;
+    letter-spacing: 0.04em;
+  }
+  .btn-white:hover { background: var(--wood-pale); }
+  .btn-outline-white {
+    border: 2px solid rgba(255,255,255,0.5); color: #fff;
+    font-weight: 500; font-size: 0.9rem;
+    padding: 14px 32px; border-radius: 100px;
+    text-decoration: none; transition: all 0.2s;
+    letter-spacing: 0.04em;
+  }
+  .btn-outline-white:hover { border-color: #fff; }
+
+  /* FOOTER */
+  footer {
+    padding: 2rem 3rem; background: var(--coal);
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 1rem;
+  }
+  footer p { font-size: 0.78rem; color: rgba(255,255,255,0.3); }
+  footer a { color: var(--wood-light); text-decoration: none; }
+
+  /* ANIMATIONS */
+  .fade-in {
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fade-in.visible { opacity: 1; transform: none; }
+
+  @media (max-width: 600px) {
+    section { padding: 4rem 1.5rem; }
+    .hero { padding: 6rem 1.5rem 4rem; }
+    nav { padding: 0 1.5rem; }
+    .roadmap-item { grid-template-columns: 1fr; gap: 0.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <span class="nav-brand">LEO MARANO</span>
+    <div class="nav-sep"></div>
+    <span class="nav-it">IT-INTEGRAL SOLUTIONS</span>
+  </div>
+  <a href="https://itintegraltech.com/#contacto" class="nav-cta" target="_blank">Iniciar proyecto</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-tag">Propuesta de Solución Digital · 2025</div>
+  <h1>De carpintero artesanal<br>a empresa <em>digital</em></h1>
+  <p class="hero-sub">Una suite de sistemas a medida para que Leo Marano Muebles escale sin perder la esencia de su oficio.</p>
+  <div class="hero-pills">
+    <div class="pill">Sitio Web SEO</div>
+    <div class="pill">Catálogo Digital</div>
+    <div class="pill">CRM de Proyectos</div>
+    <div class="pill">Cotizador Online</div>
+    <div class="pill">WhatsApp Automation</div>
+    <div class="pill">Dashboard de Gestión</div>
+  </div>
+  <div class="hero-scroll">Scroll para ver la propuesta</div>
+</section>
+
+<!-- DIAGNÓSTICO -->
+<section class="diagnostico">
+  <div class="section-tag">Diagnóstico actual</div>
+  <h2>¿Dónde está <em>hoy</em> el negocio?</h2>
+  <p class="section-intro">Leo Marano tiene un producto excelente, pero toda su operación corre sobre herramientas informales que no escalan.</p>
+  <div class="diag-grid fade-in">
+    <div class="diag-card">
+      <div class="diag-icon">📱</div>
+      <h3>Solo Instagram como presencia</h3>
+      <p>213 seguidores, sin sitio web propio. No aparece en Google cuando alguien busca "carpintero Buenos Aires" o "muebles a medida".</p>
+      <span class="diag-status status-red">Crítico</span>
+    </div>
+    <div class="diag-card">
+      <div class="diag-icon">💬</div>
+      <h3>Consultas por WhatsApp sin sistema</h3>
+      <p>Cada consulta llega al celular personal y se gestiona manualmente. Se pierden leads, no hay seguimiento ni historial organizado.</p>
+      <span class="diag-status status-red">Crítico</span>
+    </div>
+    <div class="diag-card">
+      <div class="diag-icon">📄</div>
+      <h3>Presupuestos manuales</h3>
+      <p>Se arman a mano en cada caso, sin plantillas, sin historial de precios ni registro de qué se cotizó a quién y cuándo.</p>
+      <span class="diag-status status-yellow">Urgente</span>
+    </div>
+    <div class="diag-card">
+      <div class="diag-icon">🗂️</div>
+      <h3>Sin seguimiento de proyectos</h3>
+      <p>El estado de cada trabajo solo existe en la memoria. No hay sistema de etapas, plazos o comunicación estructurada con el cliente.</p>
+      <span class="diag-status status-yellow">Urgente</span>
+    </div>
+    <div class="diag-card">
+      <div class="diag-icon">🔍</div>
+      <h3>Cero visibilidad en Google</h3>
+      <p>Sin SEO técnico, sin Google Business, sin palabras clave optimizadas. El 90% de clientes potenciales ni siquiera sabe que existe.</p>
+      <span class="diag-status status-red">Crítico</span>
+    </div>
+    <div class="diag-card">
+      <div class="diag-icon">📊</div>
+      <h3>Sin métricas del negocio</h3>
+      <p>No hay datos de cuánto se cotiza vs. cuánto se cierra, qué trabajos son más rentables ni qué meses son los más flojos.</p>
+      <span class="diag-status status-yellow">Urgente</span>
+    </div>
+  </div>
+</section>
+
+<!-- SISTEMAS -->
+<section>
+  <div class="section-tag">Solución propuesta</div>
+  <h2>Los sistemas que <em>transforman</em><br>la operación</h2>
+  <p class="section-intro">Una suite integrada de 5 módulos que crecen juntos y convierten a Leo Marano Muebles en una empresa digital sin perder la calidez artesanal.</p>
+
+  <div class="sistemas-grid fade-in">
+
+    <!-- 01 -->
+    <div class="sistema-card highlight">
+      <span class="sistema-num">01</span>
+      <div class="sistema-label">Presencia Digital</div>
+      <h3>Sitio Web Profesional + SEO</h3>
+      <p>Un sitio construido para aparecer en Google cuando alguien busca carpintero o muebles a medida en Buenos Aires.</p>
+      <ul class="feature-list">
+        <li>Landing page con portfolio visual de trabajos</li>
+        <li>SEO técnico: palabras clave del rubro, meta tags, velocidad</li>
+        <li>Google Business Profile optimizado</li>
+        <li>Formulario de contacto y botón WhatsApp</li>
+        <li>Sección de testimonios de clientes</li>
+        <li>Blog con contenido sobre interiorismo y carpintería</li>
+      </ul>
+      <span class="sistema-badge">🔑 Pieza central</span>
+    </div>
+
+    <!-- 02 -->
+    <div class="sistema-card">
+      <span class="sistema-num">02</span>
+      <div class="sistema-label">Ventas</div>
+      <h3>Catálogo Digital + Cotizador Online</h3>
+      <p>El cliente explora los trabajos, elige tipo de mueble y recibe un presupuesto estimado automático antes de contactar.</p>
+      <ul class="feature-list">
+        <li>Galería de proyectos por categoría (cocinas, placard, exterior)</li>
+        <li>Formulario de cotización inteligente por tipo de trabajo</li>
+        <li>Estimación automática de precio según medidas y materiales</li>
+        <li>Solicitud de visita técnica online</li>
+        <li>Panel admin para actualizar fotos y proyectos</li>
+      </ul>
+      <span class="sistema-badge">Convierte visitas en consultas</span>
+    </div>
+
+    <!-- 03 -->
+    <div class="sistema-card">
+      <span class="sistema-num">03</span>
+      <div class="sistema-label">Clientes</div>
+      <h3>CRM de Proyectos y Clientes</h3>
+      <p>Cada cliente, presupuesto y proyecto en un solo lugar. Con historial, notas y estado actualizado en tiempo real.</p>
+      <ul class="feature-list">
+        <li>Ficha de cliente con historial de proyectos</li>
+        <li>Pipeline visual: Consulta → Presupuesto → Proyecto → Entregado</li>
+        <li>Generación de presupuestos en PDF desde plantilla</li>
+        <li>Registro de pagos y cuotas por proyecto</li>
+        <li>Alertas de seguimiento automáticas</li>
+      </ul>
+      <span class="sistema-badge">Cero pérdida de clientes</span>
+    </div>
+
+    <!-- 04 -->
+    <div class="sistema-card">
+      <span class="sistema-num">04</span>
+      <div class="sistema-label">Automatización</div>
+      <h3>WhatsApp Automation + Respuestas Inteligentes</h3>
+      <p>Ninguna consulta sin respuesta. Un bot responde al instante con información, precios básicos y agenda la visita.</p>
+      <ul class="feature-list">
+        <li>Respuesta automática 24/7 a mensajes nuevos</li>
+        <li>Menú interactivo: "1 para cocinas, 2 para placards..."</li>
+        <li>Captura automática del lead al CRM</li>
+        <li>Recordatorios de visita técnica y seguimiento post-cotización</li>
+        <li>Integración con Google Calendar para agenda</li>
+      </ul>
+      <span class="sistema-badge">Responde mientras trabajas</span>
+    </div>
+
+    <!-- 05 -->
+    <div class="sistema-card">
+      <span class="sistema-num">05</span>
+      <div class="sistema-label">Gestión</div>
+      <h3>Dashboard de Gestión del Negocio</h3>
+      <p>Un panel centralizado con las métricas clave del taller: proyectos activos, ingresos, clientes y tendencias.</p>
+      <ul class="feature-list">
+        <li>KPIs: consultas, cierres, facturación del mes</li>
+        <li>Proyectos activos con etapa y fecha de entrega</li>
+        <li>Reporte mensual automático de rentabilidad</li>
+        <li>Calendario de obras y visitas integrado</li>
+        <li>Acceso desde celular y PC</li>
+      </ul>
+      <span class="sistema-badge">Visibilidad total del negocio</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- ROI -->
+<section class="roi">
+  <div class="section-tag" style="color: var(--wood-light);">
+    <span style="width:24px;height:1.5px;background:var(--wood-light);display:block;"></span>
+    Impacto esperado
+  </div>
+  <h2 style="color:#fff;">Lo que <em style="color:var(--wood-light);">cambia</em> con el sistema</h2>
+
+  <div class="roi-grid">
+    <div class="roi-item">
+      <span class="roi-num">+3×</span>
+      <div class="roi-label">Consultas orgánicas desde Google en 6 meses</div>
+    </div>
+    <div class="roi-item">
+      <span class="roi-num">0hs</span>
+      <div class="roi-label">Tiempo perdido en responder consultas repetitivas</div>
+    </div>
+    <div class="roi-item">
+      <span class="roi-num">100%</span>
+      <div class="roi-label">Leads capturados y registrados automáticamente</div>
+    </div>
+    <div class="roi-item">
+      <span class="roi-num">-60%</span>
+      <div class="roi-label">Tiempo en armar presupuestos manuales</div>
+    </div>
+  </div>
+
+  <p style="color:rgba(255,255,255,0.45); font-size:0.82rem; text-align:center;">*Estimaciones basadas en proyectos similares del sector muebles y carpintería.</p>
+</section>
+
+<!-- ROADMAP -->
+<section>
+  <div class="section-tag">Implementación</div>
+  <h2>Cómo lo <em>construimos</em><br>juntos</h2>
+  <p class="section-intro">Un proceso por fases para que el negocio no se frene y cada etapa genere valor desde el primer día.</p>
+
+  <div class="roadmap-list fade-in">
+    <div class="roadmap-item">
+      <div class="roadmap-fase">Semana 1–2<br><span style="font-weight:300;color:var(--mid);font-size:0.8rem;">Fundación</span></div>
+      <div class="roadmap-content">
+        <h3>Sitio web profesional + SEO base</h3>
+        <p>Lanzamos el sitio con portfolio inicial, optimización SEO técnica y Google Business Profile. El negocio ya aparece en Google desde el día 1.</p>
+        <div class="roadmap-tags">
+          <span class="rtag">Desarrollo Web</span>
+          <span class="rtag">SEO Técnico</span>
+          <span class="rtag">Google Business</span>
+        </div>
+      </div>
+    </div>
+    <div class="roadmap-item">
+      <div class="roadmap-fase">Semana 3–4<br><span style="font-weight:300;color:var(--mid);font-size:0.8rem;">Conversión</span></div>
+      <div class="roadmap-content">
+        <h3>Catálogo digital + Cotizador online</h3>
+        <p>Galería por categorías, formulario de cotización inteligente con estimación automática. Las visitas del sitio empiezan a generar consultas calificadas.</p>
+        <div class="roadmap-tags">
+          <span class="rtag">UX/UI</span>
+          <span class="rtag">Lógica de precios</span>
+          <span class="rtag">Panel admin</span>
+        </div>
+      </div>
+    </div>
+    <div class="roadmap-item">
+      <div class="roadmap-fase">Semana 5–7<br><span style="font-weight:300;color:var(--mid);font-size:0.8rem;">Gestión</span></div>
+      <div class="roadmap-content">
+        <h3>CRM + Presupuestos en PDF</h3>
+        <p>Sistema de clientes, pipeline de proyectos y generación automática de presupuestos en PDF. Todos los proyectos visibles desde un panel.</p>
+        <div class="roadmap-tags">
+          <span class="rtag">CRM a medida</span>
+          <span class="rtag">PDF Generator</span>
+          <span class="rtag">Gestión de pagos</span>
+        </div>
+      </div>
+    </div>
+    <div class="roadmap-item">
+      <div class="roadmap-fase">Semana 8–10<br><span style="font-weight:300;color:var(--mid);font-size:0.8rem;">Automatización</span></div>
+      <div class="roadmap-content">
+        <h3>WhatsApp Bot + Dashboard final</h3>
+        <p>Automatización de WhatsApp con captura de leads al CRM, alertas automáticas y dashboard de métricas del negocio. El sistema ya trabaja solo.</p>
+        <div class="roadmap-tags">
+          <span class="rtag">WhatsApp API</span>
+          <span class="rtag">Automatización</span>
+          <span class="rtag">Dashboard</span>
+          <span class="rtag">Reportes</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-final">
+  <h2>¿Empezamos?</h2>
+  <p>Una llamada de 30 minutos sin costo para entender el negocio y definir el primer paso juntos.</p>
+  <div class="cta-btns">
+    <a href="https://itintegraltech.com/#contacto" class="btn-white" target="_blank">Agendar consulta gratuita</a>
+    <a href="https://wa.me/5491100000000?text=Hola%2C%20quiero%20saber%20m%C3%A1s%20sobre%20la%20propuesta%20para%20Leo%20Marano%20Muebles" class="btn-outline-white" target="_blank">Escribir por WhatsApp</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>Propuesta elaborada por <a href="https://itintegraltech.com" target="_blank">IT-Integral Solutions</a> para Leo Marano Muebles · Buenos Aires, 2025</p>
+  <p style="color:rgba(255,255,255,0.2);">Confidencial · Uso interno</p>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('visible');
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

@@ -1,0 +1,1318 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leo Marano Muebles — Propuesta Digital · IT-Integral Solutions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --ink: #09080A;
+  --ink2: #131118;
+  --gold: #C8933A;
+  --gold2: #E8B86D;
+  --gold-pale: rgba(200,147,58,0.08);
+  --white: #F5F2EE;
+  --white2: rgba(245,242,238,0.72);
+  --white3: rgba(245,242,238,0.35);
+  --white4: rgba(245,242,238,0.12);
+  --line: rgba(245,242,238,0.1);
+  --red: #C0392B;
+  --amber: #E67E22;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  cursor: none;
+}
+
+body {
+  font-family: 'Syne', sans-serif;
+  background: var(--ink);
+  color: var(--white);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* ---- CURSOR ---- */
+#cursor {
+  position: fixed; width: 10px; height: 10px; border-radius: 50%;
+  background: var(--gold); pointer-events: none; z-index: 9999;
+  transform: translate(-50%,-50%); transition: transform 0.05s;
+  mix-blend-mode: difference;
+}
+#cursor-ring {
+  position: fixed; width: 36px; height: 36px; border-radius: 50%;
+  border: 1px solid var(--gold); pointer-events: none; z-index: 9998;
+  transform: translate(-50%,-50%); transition: all 0.18s ease;
+  opacity: 0.6;
+}
+a, button, .hover-target { cursor: none; }
+
+/* ---- NOISE OVERLAY ---- */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 1; pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 180px;
+}
+
+/* ---- SCROLLBAR ---- */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--ink); }
+::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
+
+/* ---- NAV ---- */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+  padding: 0 3rem;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 72px;
+  transition: all 0.4s;
+}
+nav.scrolled {
+  background: rgba(9,8,10,0.92);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--line);
+  height: 60px;
+}
+.nav-logo {
+  display: flex; flex-direction: column; gap: 1px;
+}
+.nav-logo-main {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem; font-weight: 600; letter-spacing: 0.25em;
+  color: var(--white); text-transform: uppercase;
+}
+.nav-logo-sub {
+  font-size: 0.6rem; font-weight: 500; letter-spacing: 0.3em;
+  color: var(--gold); text-transform: uppercase;
+}
+.nav-right {
+  display: flex; align-items: center; gap: 2rem;
+}
+.nav-link {
+  font-size: 0.72rem; letter-spacing: 0.15em; color: var(--white3);
+  text-decoration: none; text-transform: uppercase;
+  transition: color 0.2s;
+}
+.nav-link:hover { color: var(--white); }
+.nav-cta {
+  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.18em;
+  color: var(--ink); background: var(--gold);
+  text-decoration: none; padding: 10px 22px;
+  text-transform: uppercase; transition: all 0.25s;
+}
+.nav-cta:hover { background: var(--gold2); }
+
+/* ---- HERO ---- */
+.hero {
+  min-height: 100vh; position: relative;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 0 3rem 5rem;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute; inset: 0; z-index: 0;
+  background: var(--ink);
+}
+.hero-lines {
+  position: absolute; inset: 0; z-index: 1;
+  background-image:
+    linear-gradient(rgba(200,147,58,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(200,147,58,0.04) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+.hero-glow {
+  position: absolute; top: -200px; right: -200px; z-index: 1;
+  width: 700px; height: 700px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(200,147,58,0.07) 0%, transparent 70%);
+}
+.hero-glow2 {
+  position: absolute; bottom: -100px; left: 200px; z-index: 1;
+  width: 400px; height: 400px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(200,147,58,0.04) 0%, transparent 70%);
+}
+
+.hero-counter {
+  position: absolute; top: 50%; right: 3rem; z-index: 10;
+  transform: translateY(-50%);
+  display: flex; flex-direction: column; gap: 2rem;
+}
+.hero-stat {
+  text-align: right;
+  border-right: 1px solid var(--gold);
+  padding-right: 1.5rem;
+}
+.hero-stat-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.5rem; font-weight: 300; color: var(--white);
+  line-height: 1; display: block;
+}
+.hero-stat-label {
+  font-size: 0.62rem; letter-spacing: 0.18em; color: var(--white3);
+  text-transform: uppercase; display: block; margin-top: 4px;
+}
+
+.hero-content { position: relative; z-index: 10; max-width: 820px; }
+.hero-eyebrow {
+  display: flex; align-items: center; gap: 16px;
+  margin-bottom: 2.5rem;
+}
+.hero-eyebrow-line { width: 60px; height: 1px; background: var(--gold); }
+.hero-eyebrow-text {
+  font-size: 0.68rem; letter-spacing: 0.25em; color: var(--gold);
+  text-transform: uppercase; font-weight: 600;
+}
+
+.hero h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3.5rem, 8vw, 7.5rem);
+  font-weight: 300; line-height: 0.95;
+  color: var(--white); margin-bottom: 2.5rem;
+  letter-spacing: -0.01em;
+}
+.hero h1 em {
+  font-style: italic; color: var(--gold);
+}
+.hero h1 .outline {
+  -webkit-text-stroke: 1px rgba(245,242,238,0.3);
+  color: transparent;
+}
+
+.hero-meta {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  gap: 2rem; flex-wrap: wrap;
+}
+.hero-desc {
+  font-size: 1rem; color: var(--white3); max-width: 440px;
+  line-height: 1.8; font-weight: 400;
+}
+.hero-scroll-hint {
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+}
+.hero-scroll-hint span {
+  font-size: 0.6rem; letter-spacing: 0.2em; color: var(--white3);
+  text-transform: uppercase; writing-mode: vertical-rl;
+}
+.scroll-line {
+  width: 1px; height: 60px; background: var(--line);
+  position: relative; overflow: hidden;
+}
+.scroll-line::after {
+  content: ''; position: absolute; top: -100%; left: 0;
+  width: 100%; height: 100%; background: var(--gold);
+  animation: scrollline 2s ease-in-out infinite;
+}
+@keyframes scrollline {
+  0% { top: -100%; } 100% { top: 200%; }
+}
+
+/* ---- TICKER ---- */
+.ticker {
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  overflow: hidden; padding: 14px 0;
+  position: relative; z-index: 10;
+}
+.ticker-track {
+  display: flex; gap: 0; white-space: nowrap;
+  animation: ticker 28s linear infinite;
+}
+.ticker-item {
+  font-size: 0.68rem; letter-spacing: 0.2em; color: var(--white3);
+  text-transform: uppercase; padding: 0 3rem;
+  display: flex; align-items: center; gap: 3rem;
+}
+.ticker-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+@keyframes ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ---- SECTIONS BASE ---- */
+section { position: relative; z-index: 10; }
+
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 14px;
+  font-size: 0.65rem; letter-spacing: 0.28em; color: var(--gold);
+  text-transform: uppercase; font-weight: 600; margin-bottom: 1.8rem;
+}
+.eyebrow::before { content: ''; width: 32px; height: 1px; background: var(--gold); }
+
+h2.display {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.8rem, 5.5vw, 5rem);
+  font-weight: 300; line-height: 1.05;
+  color: var(--white); letter-spacing: -0.01em;
+}
+h2.display em { font-style: italic; color: var(--gold); }
+h2.display .dim { color: var(--white3); }
+
+/* ---- DIAGNÓSTICO ---- */
+.diag-section {
+  padding: 8rem 3rem;
+  border-top: 1px solid var(--line);
+}
+.diag-header {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
+  margin-bottom: 5rem; align-items: end;
+}
+.diag-intro {
+  font-size: 1.05rem; color: var(--white3); line-height: 1.9;
+  border-left: 1px solid var(--gold); padding-left: 1.5rem;
+}
+
+.diag-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+}
+.diag-card {
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 2.5rem;
+  position: relative; overflow: hidden;
+  transition: background 0.3s;
+}
+.diag-card::before {
+  content: ''; position: absolute; inset: 0;
+  background: var(--gold-pale); opacity: 0;
+  transition: opacity 0.3s;
+}
+.diag-card:hover::before { opacity: 1; }
+.diag-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 4rem; font-weight: 300; color: var(--line);
+  line-height: 1; margin-bottom: 1.2rem; display: block;
+  transition: color 0.3s;
+}
+.diag-card:hover .diag-num { color: rgba(200,147,58,0.15); }
+.diag-card h3 {
+  font-size: 0.95rem; font-weight: 600; letter-spacing: 0.04em;
+  margin-bottom: 0.8rem; color: var(--white);
+}
+.diag-card p { font-size: 0.82rem; color: var(--white3); line-height: 1.8; }
+.diag-severity {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-top: 1.5rem; font-size: 0.65rem; letter-spacing: 0.16em;
+  text-transform: uppercase; font-weight: 600;
+}
+.sev-dot { width: 6px; height: 6px; border-radius: 50%; }
+.sev-critical .sev-dot { background: var(--red); }
+.sev-critical { color: var(--red); }
+.sev-urgent .sev-dot { background: var(--amber); }
+.sev-urgent { color: var(--amber); }
+
+/* ---- SISTEMAS ---- */
+.sistemas-section { padding: 8rem 0; border-top: 1px solid var(--line); }
+.sistemas-header { padding: 0 3rem; margin-bottom: 5rem; }
+
+.sistema-item {
+  border-top: 1px solid var(--line);
+  display: grid; grid-template-columns: 80px 1fr 1fr;
+  gap: 0;
+  transition: background 0.35s;
+  cursor: default;
+}
+.sistema-item:last-child { border-bottom: 1px solid var(--line); }
+.sistema-item:hover { background: rgba(200,147,58,0.04); }
+
+.sistema-num-col {
+  border-right: 1px solid var(--line);
+  padding: 3rem;
+  display: flex; align-items: flex-start; justify-content: center;
+}
+.s-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem; font-weight: 400; color: var(--white3);
+  letter-spacing: 0.1em;
+}
+.sistema-main-col {
+  border-right: 1px solid var(--line);
+  padding: 3rem;
+}
+.sistema-tag {
+  font-size: 0.62rem; letter-spacing: 0.22em; color: var(--gold);
+  text-transform: uppercase; font-weight: 600; margin-bottom: 1rem;
+  display: block;
+}
+.sistema-main-col h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.9rem; font-weight: 400; color: var(--white);
+  line-height: 1.2; margin-bottom: 1rem;
+}
+.sistema-main-col p { font-size: 0.85rem; color: var(--white3); line-height: 1.9; }
+
+.sistema-features-col {
+  padding: 3rem;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.sistema-features-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.sistema-features-col li {
+  font-size: 0.8rem; color: var(--white3);
+  display: flex; align-items: flex-start; gap: 12px; line-height: 1.6;
+}
+.sistema-features-col li::before {
+  content: ''; width: 14px; height: 1px; background: var(--gold);
+  flex-shrink: 0; margin-top: 10px;
+}
+.sistema-badge-block {
+  margin-top: 1.5rem; padding-top: 1.5rem;
+  border-top: 1px solid var(--line);
+  font-size: 0.7rem; letter-spacing: 0.12em; color: var(--gold);
+  text-transform: uppercase; font-weight: 600;
+}
+
+/* ---- IMPACTO ---- */
+.impacto-section {
+  padding: 8rem 3rem;
+  border-top: 1px solid var(--line);
+  background: var(--ink2);
+}
+.impacto-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+  margin-top: 4rem;
+}
+.impacto-card {
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 3rem 2.5rem;
+}
+.imp-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 4.5rem; font-weight: 300;
+  color: var(--gold); line-height: 1; display: block;
+  margin-bottom: 0.8rem;
+}
+.imp-label {
+  font-size: 0.78rem; color: var(--white3);
+  line-height: 1.7; max-width: 160px;
+}
+
+/* ---- ROADMAP ---- */
+.roadmap-section {
+  padding: 8rem 3rem;
+  border-top: 1px solid var(--line);
+}
+.roadmap-header { margin-bottom: 5rem; }
+.roadmap-timeline {
+  position: relative;
+  padding-left: 2rem;
+}
+.roadmap-line {
+  position: absolute; left: 0; top: 0; bottom: 0;
+  width: 1px; background: var(--line);
+}
+.roadmap-line-fill {
+  position: absolute; left: 0; top: 0;
+  width: 1px; background: var(--gold);
+  height: 0; transition: height 1s ease;
+}
+.roadmap-step {
+  display: grid; grid-template-columns: 180px 1fr;
+  gap: 3rem; padding: 3rem 0 3rem 2rem;
+  border-bottom: 1px solid var(--line);
+  position: relative;
+  align-items: start;
+}
+.roadmap-step:first-child { border-top: 1px solid var(--line); }
+.roadmap-dot {
+  position: absolute; left: -4.5px; top: 3.6rem;
+  width: 9px; height: 9px; border-radius: 50%;
+  background: var(--ink); border: 1px solid var(--line);
+  transition: border-color 0.4s, background 0.4s;
+}
+.roadmap-step.active .roadmap-dot {
+  background: var(--gold); border-color: var(--gold);
+}
+.roadmap-phase {
+  font-size: 0.65rem; letter-spacing: 0.2em; color: var(--gold);
+  text-transform: uppercase; font-weight: 600;
+}
+.roadmap-duration {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.5rem; font-weight: 300; color: var(--white);
+  line-height: 1; margin-top: 0.5rem; margin-bottom: 0;
+}
+.roadmap-unit {
+  font-size: 0.75rem; color: var(--white3); display: block; margin-top: 4px;
+}
+.roadmap-content h3 {
+  font-size: 1rem; font-weight: 600; color: var(--white);
+  margin-bottom: 0.6rem; margin-top: 0.2rem; letter-spacing: 0.02em;
+}
+.roadmap-content p { font-size: 0.82rem; color: var(--white3); line-height: 1.8; }
+.roadmap-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 1rem; }
+.rtag {
+  font-size: 0.63rem; letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 5px 12px; border: 1px solid var(--line); color: var(--white3);
+}
+
+/* ---- PRECIOS ---- */
+.precios-section {
+  padding: 8rem 3rem;
+  border-top: 1px solid var(--line);
+  background: var(--ink2);
+}
+.precios-header { margin-bottom: 5rem; }
+.precios-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+}
+.precio-card {
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 2.5rem;
+  position: relative;
+  transition: background 0.3s;
+}
+.precio-card.featured {
+  background: var(--gold-pale);
+  border-top: 2px solid var(--gold);
+  margin-top: -2px;
+}
+.precio-card:hover { background: rgba(200,147,58,0.06); }
+.precio-card.featured:hover { background: rgba(200,147,58,0.12); }
+.precio-tier {
+  font-size: 0.62rem; letter-spacing: 0.22em; color: var(--gold);
+  text-transform: uppercase; font-weight: 600; margin-bottom: 1.5rem;
+  display: block;
+}
+.precio-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem; font-weight: 400; color: var(--white);
+  margin-bottom: 0.5rem; line-height: 1.2;
+}
+.precio-desc { font-size: 0.78rem; color: var(--white3); margin-bottom: 2rem; line-height: 1.7; }
+.precio-amount {
+  display: flex; align-items: baseline; gap: 4px;
+  margin-bottom: 0.5rem;
+}
+.precio-currency { font-size: 1rem; color: var(--gold); font-weight: 600; }
+.precio-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3rem; font-weight: 300; color: var(--white); line-height: 1;
+}
+.precio-was {
+  font-size: 0.8rem; color: var(--white3);
+  text-decoration: line-through; margin-bottom: 0.5rem; display: block;
+}
+.precio-save {
+  font-size: 0.65rem; letter-spacing: 0.14em; color: var(--gold);
+  text-transform: uppercase; font-weight: 600; margin-bottom: 2rem; display: block;
+}
+.precio-features { list-style: none; display: flex; flex-direction: column; gap: 9px; margin-bottom: 2rem; }
+.precio-features li {
+  font-size: 0.78rem; color: var(--white3);
+  display: flex; align-items: flex-start; gap: 10px; line-height: 1.5;
+}
+.precio-features li::before {
+  content: ''; display: block; width: 10px; height: 1px;
+  background: var(--gold); flex-shrink: 0; margin-top: 9px;
+}
+.precio-cta {
+  display: block; text-align: center; padding: 12px;
+  border: 1px solid var(--line); color: var(--white3);
+  text-decoration: none; font-size: 0.72rem; letter-spacing: 0.16em;
+  text-transform: uppercase; font-weight: 600;
+  transition: all 0.25s;
+}
+.precio-cta:hover { border-color: var(--gold); color: var(--gold); }
+.precio-card.featured .precio-cta {
+  background: var(--gold); color: var(--ink); border-color: var(--gold);
+}
+.precio-card.featured .precio-cta:hover { background: var(--gold2); }
+.precio-cuota {
+  font-size: 0.7rem; color: var(--white3); margin-top: 1rem;
+  text-align: center; line-height: 1.5;
+}
+
+/* ---- MANT ---- */
+.mant-row {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  border-left: 1px solid var(--line);
+  border-top: 1px solid var(--line);
+  margin-top: 4rem;
+}
+.mant-card {
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 2.5rem;
+}
+.mant-label {
+  font-size: 0.62rem; letter-spacing: 0.22em; color: var(--gold);
+  text-transform: uppercase; font-weight: 600; margin-bottom: 1rem; display: block;
+}
+.mant-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem; font-weight: 300; color: var(--white);
+  margin-bottom: 0.6rem;
+}
+.mant-desc { font-size: 0.78rem; color: var(--white3); line-height: 1.8; margin-bottom: 1.5rem; }
+.mant-price {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.5rem; font-weight: 300; color: var(--gold); line-height: 1;
+}
+.mant-per { font-size: 0.75rem; color: var(--white3); }
+
+/* ---- CTA FINAL ---- */
+.cta-section {
+  padding: 10rem 3rem;
+  border-top: 1px solid var(--line);
+  text-align: center; position: relative; overflow: hidden;
+}
+.cta-bg-text {
+  position: absolute; inset: 0; display: flex; align-items: center;
+  justify-content: center; z-index: 0; pointer-events: none;
+  overflow: hidden;
+}
+.cta-bg-text span {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(8rem, 20vw, 18rem); font-weight: 300;
+  color: rgba(200,147,58,0.04); white-space: nowrap; letter-spacing: -0.02em;
+  user-select: none;
+}
+.cta-content { position: relative; z-index: 10; }
+.cta-eyebrow {
+  font-size: 0.65rem; letter-spacing: 0.28em; color: var(--gold);
+  text-transform: uppercase; font-weight: 600; margin-bottom: 2rem;
+  display: block;
+}
+.cta-section h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3rem, 7vw, 6rem); font-weight: 300;
+  color: var(--white); margin-bottom: 1.5rem; line-height: 1.05;
+}
+.cta-section h2 em { font-style: italic; color: var(--gold); }
+.cta-sub {
+  font-size: 1rem; color: var(--white3); max-width: 480px;
+  margin: 0 auto 3.5rem; line-height: 1.9;
+}
+.cta-btns { display: flex; justify-content: center; gap: 1.2rem; flex-wrap: wrap; }
+.btn-gold {
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em;
+  text-transform: uppercase; padding: 16px 36px;
+  background: var(--gold); color: var(--ink);
+  text-decoration: none; transition: all 0.25s;
+}
+.btn-gold:hover { background: var(--gold2); }
+.btn-ghost {
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.2em;
+  text-transform: uppercase; padding: 16px 36px;
+  border: 1px solid var(--line); color: var(--white3);
+  text-decoration: none; transition: all 0.25s;
+}
+.btn-ghost:hover { border-color: var(--white3); color: var(--white); }
+
+/* ---- FOOTER ---- */
+footer {
+  border-top: 1px solid var(--line);
+  padding: 2.5rem 3rem;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+}
+.footer-brand {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem; font-weight: 400; letter-spacing: 0.2em;
+  color: var(--white3); text-transform: uppercase;
+}
+.footer-meta { font-size: 0.7rem; color: var(--white3); opacity: 0.4; letter-spacing: 0.08em; }
+.footer-link { color: var(--gold); text-decoration: none; }
+
+/* ---- REVEAL ---- */
+.reveal {
+  opacity: 0; transform: translateY(32px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal.visible { opacity: 1; transform: none; }
+
+/* ---- GALLERY ---- */
+.gallery-section {
+  padding: 7rem 3rem;
+  border-top: 1px solid var(--line);
+}
+.gallery-header {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  margin-bottom: 3.5rem; gap: 2rem; flex-wrap: wrap;
+}
+.gallery-grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr;
+  grid-template-rows: 340px 260px;
+  gap: 3px;
+}
+.gallery-item {
+  overflow: hidden; position: relative;
+}
+.gallery-item img {
+  width: 100%; height: 100%; object-fit: cover;
+  display: block; transition: transform 0.7s ease;
+  filter: brightness(0.88) saturate(0.9);
+}
+.gallery-item:hover img {
+  transform: scale(1.06);
+  filter: brightness(0.95) saturate(1.05);
+}
+.gallery-item.tall { grid-row: span 2; }
+.gallery-caption {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 1.2rem 1.4rem;
+  background: linear-gradient(transparent, rgba(9,8,10,0.75));
+  opacity: 0; transition: opacity 0.3s;
+}
+.gallery-item:hover .gallery-caption { opacity: 1; }
+.gallery-caption span {
+  font-size: 0.68rem; letter-spacing: 0.18em; color: var(--white2);
+  text-transform: uppercase; font-weight: 600;
+}
+.gallery-note {
+  margin-top: 1.5rem;
+  display: flex; align-items: center; gap: 12px;
+  font-size: 0.72rem; color: var(--white3); letter-spacing: 0.06em;
+}
+.gallery-note::before {
+  content: ''; width: 24px; height: 1px; background: var(--gold);
+}
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 1024px) {
+  .diag-grid { grid-template-columns: repeat(2,1fr); }
+  .impacto-grid { grid-template-columns: repeat(2,1fr); }
+  .precios-grid { grid-template-columns: repeat(2,1fr); }
+  .sistema-item { grid-template-columns: 60px 1fr; }
+  .sistema-features-col { display: none; }
+  .hero-counter { display: none; }
+}
+@media (max-width: 700px) {
+  nav { padding: 0 1.5rem; }
+  .nav-right { display: none; }
+  .hero { padding: 0 1.5rem 4rem; }
+  .hero h1 { font-size: 3.2rem; }
+  section, .diag-section, .sistemas-section, .impacto-section,
+  .roadmap-section, .precios-section, .cta-section { padding: 5rem 1.5rem; }
+  .diag-header { grid-template-columns: 1fr; }
+  .diag-grid { grid-template-columns: 1fr; }
+  .impacto-grid { grid-template-columns: 1fr 1fr; }
+  .precios-grid { grid-template-columns: 1fr; }
+  .mant-row { grid-template-columns: 1fr; }
+  .roadmap-step { grid-template-columns: 1fr; }
+  .sistema-item { grid-template-columns: 1fr; }
+  .sistema-num-col { display: none; }
+  .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: 220px 220px 220px; }
+  .gallery-item.tall { grid-row: span 1; }
+  footer { flex-direction: column; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-logo">
+    <div class="nav-logo-main">Leo Marano</div>
+    <div class="nav-logo-sub">IT-Integral Solutions · Propuesta 2026</div>
+  </div>
+  <div class="nav-right">
+    <a href="#diagnostico" class="nav-link">Diagnóstico</a>
+    <a href="#sistemas" class="nav-link">Sistemas</a>
+    <a href="#precios" class="nav-link">Inversión</a>
+  <a href="https://wa.me/5491133634277?text=Hola%20Oscar%2C%20vi%20la%20propuesta%20y%20quiero%20empezar" class="nav-cta" target="_blank">Empezamos</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg" style="background-image:url('https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=1920&q=85&fit=crop'); background-size:cover; background-position:center;"></div>
+  <div class="hero-overlay" style="position:absolute;inset:0;z-index:1;background:linear-gradient(135deg,rgba(9,8,10,0.88) 0%,rgba(9,8,10,0.65) 60%,rgba(9,8,10,0.82) 100%);"></div>
+  <div class="hero-lines"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+
+  <div class="hero-counter">
+    <div class="hero-stat">
+      <span class="hero-stat-num" data-count="5">0</span>
+      <span class="hero-stat-label">Sistemas integrados</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-num" data-count="10">0</span>
+      <span class="hero-stat-label">Semanas al lanzamiento</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-num" data-count="3" data-suffix="×">0×</span>
+      <span class="hero-stat-label">Consultas proyectadas</span>
+    </div>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-line"></div>
+      <div class="hero-eyebrow-text">Propuesta de Transformación Digital · Confidencial · 2026</div>
+    </div>
+    <h1>
+      De taller<br>
+      <em>artesanal</em> a<br>
+      <span class="outline">empresa</span> digital
+    </h1>
+    <div class="hero-meta">
+      <p class="hero-desc">Una arquitectura tecnológica completa diseñada exclusivamente para Leo Marano Muebles — para que su negocio trabaje mientras usted construye.</p>
+      <div class="hero-scroll-hint">
+        <div class="scroll-line"></div>
+        <span>Scroll</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track">
+    <div class="ticker-item">Sitio Web Profesional<span class="ticker-dot"></span></div>
+    <div class="ticker-item">Catálogo Digital<span class="ticker-dot"></span></div>
+    <div class="ticker-item">CRM de Clientes<span class="ticker-dot"></span></div>
+    <div class="ticker-item">WhatsApp Automation<span class="ticker-dot"></span></div>
+    <div class="ticker-item">Dashboard de Gestión<span class="ticker-dot"></span></div>
+    <div class="ticker-item">SEO Técnico<span class="ticker-dot"></span></div>
+    <div class="ticker-item">Presupuestos en PDF<span class="ticker-dot"></span></div>
+    <div class="ticker-item">Reportes Automáticos<span class="ticker-dot"></span></div>
+    <div class="ticker-item">Sitio Web Profesional<span class="ticker-dot"></span></div>
+    <div class="ticker-item">Catálogo Digital<span class="ticker-dot"></span></div>
+    <div class="ticker-item">CRM de Clientes<span class="ticker-dot"></span></div>
+    <div class="ticker-item">WhatsApp Automation<span class="ticker-dot"></span></div>
+    <div class="ticker-item">Dashboard de Gestión<span class="ticker-dot"></span></div>
+    <div class="ticker-item">SEO Técnico<span class="ticker-dot"></span></div>
+    <div class="ticker-item">Presupuestos en PDF<span class="ticker-dot"></span></div>
+    <div class="ticker-item">Reportes Automáticos<span class="ticker-dot"></span></div>
+  </div>
+</div>
+
+<!-- GALLERY -->
+<section class="gallery-section reveal">
+  <div class="gallery-header">
+    <div>
+      <div class="eyebrow">El nivel que merecen</div>
+      <h2 class="display">Así se ve un<br>portfolio <em>premium</em></h2>
+    </div>
+    <p style="max-width:340px; font-size:0.9rem; color:var(--white3); line-height:1.9; border-left:1px solid var(--gold); padding-left:1.5rem;">El trabajo de Leo Marano ya tiene este nivel. Lo que construimos juntos es la plataforma digital que lo demuestre al mundo.</p>
+  </div>
+
+  <div class="gallery-grid">
+    <div class="gallery-item tall">
+      <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=900&q=85&fit=crop" alt="Cocina a medida premium" loading="lazy">
+      <div class="gallery-caption"><span>Cocinas a medida</span></div>
+    </div>
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1617806118233-18e1de247200?w=700&q=85&fit=crop" alt="Placard a medida" loading="lazy">
+      <div class="gallery-caption"><span>Placards &amp; vestidores</span></div>
+    </div>
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=700&q=85&fit=crop" alt="Muebles de living" loading="lazy">
+      <div class="gallery-caption"><span>Living &amp; interiores</span></div>
+    </div>
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=700&q=85&fit=crop" alt="Estantería a medida" loading="lazy">
+      <div class="gallery-caption"><span>Estanterías</span></div>
+    </div>
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=700&q=85&fit=crop" alt="Carpintería de exterior" loading="lazy">
+      <div class="gallery-caption"><span>Exteriores</span></div>
+    </div>
+  </div>
+
+  <div class="gallery-note">Estas imágenes son referencias de estilo — se reemplazarán con los trabajos reales de Leo Marano Muebles en el sitio final.</div>
+</section>
+
+<!-- DIAGNÓSTICO -->
+<section class="diag-section reveal" id="diagnostico">
+  <div class="diag-header">
+    <div>
+      <div class="eyebrow">Diagnóstico actual</div>
+      <h2 class="display">La realidad<br>de hoy,<br><em>sin filtros</em></h2>
+    </div>
+    <div>
+      <p class="diag-intro">Leo Marano tiene un producto excepcional. El trabajo habla por sí solo. El problema es que casi nadie lo puede encontrar — y los que llegan, no reciben la experiencia que merecen. Eso termina hoy.</p>
+    </div>
+  </div>
+
+  <div class="diag-grid">
+    <div class="diag-card">
+      <span class="diag-num">01</span>
+      <h3>Invisible en Google</h3>
+      <p>Sin sitio web propio, el negocio no existe para el 90% de los clientes potenciales que buscan "muebles a medida Buenos Aires" todos los días.</p>
+      <div class="diag-severity sev-critical"><div class="sev-dot"></div>Crítico</div>
+    </div>
+    <div class="diag-card">
+      <span class="diag-num">02</span>
+      <h3>Consultas sin sistema</h3>
+      <p>Cada mensaje llega al celular personal y se gestiona a mano. Sin historial, sin seguimiento, sin datos. Clientes que se pierden sin dejar rastro.</p>
+      <div class="diag-severity sev-critical"><div class="sev-dot"></div>Crítico</div>
+    </div>
+    <div class="diag-card">
+      <span class="diag-num">03</span>
+      <h3>Presupuestos manuales</h3>
+      <p>Cada cotización se arma desde cero. Sin plantillas, sin historial de precios, sin registro de seguimiento. Tiempo que vale dinero, perdido en burocracia.</p>
+      <div class="diag-severity sev-urgent"><div class="sev-dot"></div>Urgente</div>
+    </div>
+    <div class="diag-card">
+      <span class="diag-num">04</span>
+      <h3>Sin gestión de proyectos</h3>
+      <p>El estado de cada obra existe solo en la memoria. No hay sistema de etapas, plazos ni comunicación estructurada — y eso genera errores y retrasos.</p>
+      <div class="diag-severity sev-urgent"><div class="sev-dot"></div>Urgente</div>
+    </div>
+    <div class="diag-card">
+      <span class="diag-num">05</span>
+      <h3>Presencia reducida a Instagram</h3>
+      <p>213 seguidores en una red que cambia sus algoritmos constantemente. Un negocio no puede depender de una plataforma que no controla.</p>
+      <div class="diag-severity sev-critical"><div class="sev-dot"></div>Crítico</div>
+    </div>
+    <div class="diag-card">
+      <span class="diag-num">06</span>
+      <h3>Cero métricas de negocio</h3>
+      <p>Sin datos no hay decisiones. ¿Qué trabajos son más rentables? ¿Qué meses bajan las consultas? ¿Cuántos presupuestos se cierran? Nadie lo sabe.</p>
+      <div class="diag-severity sev-urgent"><div class="sev-dot"></div>Urgente</div>
+    </div>
+  </div>
+</section>
+
+<!-- SISTEMAS -->
+<section class="sistemas-section reveal" id="sistemas">
+  <div class="sistemas-header">
+    <div class="eyebrow">Solución propuesta</div>
+    <h2 class="display">Cinco sistemas.<br><em>Una sola empresa</em><br><span class="dim">que funciona sola.</span></h2>
+  </div>
+
+  <div class="sistema-item">
+    <div class="sistema-num-col"><span class="s-num">01</span></div>
+    <div class="sistema-main-col">
+      <span class="sistema-tag">Presencia Digital</span>
+      <h3>Sitio web profesional + SEO</h3>
+      <p>Su primera impresión digital, construida para capturar clientes y dominar las búsquedas locales. No es solo una página bonita — es la base de todo el sistema.</p>
+      <div class="sistema-badge-block">Resultado: aparece en Google en semanas, no en meses</div>
+    </div>
+    <div class="sistema-features-col">
+      <ul>
+        <li>Landing page con portfolio visual de proyectos terminados</li>
+        <li>SEO técnico: velocidad, meta tags, schema markup de carpintero local</li>
+        <li>Google Business Profile optimizado con categorías y fotos</li>
+        <li>Formulario de contacto y botón WhatsApp integrado</li>
+        <li>Sección de testimonios y casos de éxito</li>
+        <li>Blog con contenido sobre carpintería e interiorismo</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sistema-item">
+    <div class="sistema-num-col"><span class="s-num">02</span></div>
+    <div class="sistema-main-col">
+      <span class="sistema-tag">Ventas</span>
+      <h3>Catálogo digital + cotizador online</h3>
+      <p>El cliente navega su trabajo, elige el tipo de mueble y recibe una estimación automática antes de contactarlo. Llegan sabiendo lo que quieren — y lo que cuesta.</p>
+      <div class="sistema-badge-block">Resultado: consultas calificadas, no curiosos</div>
+    </div>
+    <div class="sistema-features-col">
+      <ul>
+        <li>Galería de proyectos filtrable por categoría: cocinas, placards, exteriores</li>
+        <li>Formulario de cotización inteligente con lógica de precios por tipo de trabajo</li>
+        <li>Estimación automática según medidas y materiales seleccionados</li>
+        <li>Solicitud de visita técnica con calendario integrado</li>
+        <li>Panel admin para subir nuevas fotos y proyectos sin técnico</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sistema-item">
+    <div class="sistema-num-col"><span class="s-num">03</span></div>
+    <div class="sistema-main-col">
+      <span class="sistema-tag">Gestión de clientes</span>
+      <h3>CRM de proyectos</h3>
+      <p>Cada cliente, presupuesto y obra en un solo lugar. Con historial completo, notas, estado en tiempo real y generación de presupuestos en PDF con su marca.</p>
+      <div class="sistema-badge-block">Resultado: cero proyectos olvidados, cero clientes perdidos</div>
+    </div>
+    <div class="sistema-features-col">
+      <ul>
+        <li>Ficha de cliente con historial completo de proyectos y comunicaciones</li>
+        <li>Pipeline visual: Consulta → Presupuesto → En obra → Entregado</li>
+        <li>Generación de presupuestos en PDF desde plantilla con logo Leo Marano</li>
+        <li>Registro de pagos, cuotas y estado de cada proyecto</li>
+        <li>Alertas automáticas de seguimiento post-presupuesto</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sistema-item">
+    <div class="sistema-num-col"><span class="s-num">04</span></div>
+    <div class="sistema-main-col">
+      <span class="sistema-tag">Automatización</span>
+      <h3>WhatsApp automation + respuestas inteligentes</h3>
+      <p>Un sistema que responde consultas 24/7, califica leads, agenda visitas y alimenta el CRM — todo sin intervención manual. El negocio trabaja aunque no esté en el teléfono.</p>
+      <div class="sistema-badge-block">Resultado: ninguna consulta sin respuesta, nunca más</div>
+    </div>
+    <div class="sistema-features-col">
+      <ul>
+        <li>Respuesta automática al instante con menú interactivo de opciones</li>
+        <li>Captura automática del lead y volcado directo al CRM</li>
+        <li>Recordatorios de visita técnica y seguimiento post-cotización</li>
+        <li>Integración con Google Calendar para agenda de visitas</li>
+        <li>Notificaciones internas cuando llega un lead calificado</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sistema-item">
+    <div class="sistema-num-col"><span class="s-num">05</span></div>
+    <div class="sistema-main-col">
+      <span class="sistema-tag">Inteligencia de negocio</span>
+      <h3>Dashboard de gestión</h3>
+      <p>Un panel de control en tiempo real con todas las métricas que importan: proyectos activos, facturación, cierres y tendencias. Desde el celular o la PC del taller.</p>
+      <div class="sistema-badge-block">Resultado: decisiones basadas en datos, no en intuición</div>
+    </div>
+    <div class="sistema-features-col">
+      <ul>
+        <li>KPIs centralizados: consultas, presupuestos enviados, tasa de cierre</li>
+        <li>Proyectos activos con etapa, responsable y fecha de entrega</li>
+        <li>Reporte mensual automático de rentabilidad por tipo de trabajo</li>
+        <li>Calendario integrado de obras, visitas y entregas</li>
+        <li>Acceso móvil optimizado para usar desde cualquier lugar</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- IMPACTO -->
+<section class="impacto-section reveal">
+  <div class="eyebrow">Impacto proyectado</div>
+  <h2 class="display">Lo que <em>cambia</em><br>en 90 días</h2>
+  <div class="impacto-grid">
+    <div class="impacto-card">
+      <span class="imp-num" data-count="3" data-suffix="×">3×</span>
+      <div class="imp-label">Más consultas orgánicas desde Google en los primeros 6 meses</div>
+    </div>
+    <div class="impacto-card">
+      <span class="imp-num">0</span>
+      <div class="imp-label">Consultas sin respuesta. El sistema trabaja 24 horas, 7 días</div>
+    </div>
+    <div class="impacto-card">
+      <span class="imp-num" data-count="60" data-suffix="%">60%</span>
+      <div class="imp-label">Menos tiempo dedicado a armar presupuestos y hacer seguimiento</div>
+    </div>
+    <div class="impacto-card">
+      <span class="imp-num">1</span>
+      <div class="imp-label">Panel único con toda la información del negocio en tiempo real</div>
+    </div>
+  </div>
+</section>
+
+<!-- ROADMAP -->
+<section class="roadmap-section reveal" id="roadmap">
+  <div class="roadmap-header">
+    <div class="eyebrow">Implementación</div>
+    <h2 class="display">10 semanas.<br><em>Sistema completo.</em><br><span class="dim">Sin frenar el taller.</span></h2>
+  </div>
+
+  <div class="roadmap-timeline">
+    <div class="roadmap-line"><div class="roadmap-line-fill" id="roadmap-fill"></div></div>
+
+    <div class="roadmap-step active">
+      <div class="roadmap-dot"></div>
+      <div>
+        <div class="roadmap-phase">Fase 01 · Fundación</div>
+        <div class="roadmap-duration">Sem 1–2</div>
+        <span class="roadmap-unit">2 semanas</span>
+      </div>
+      <div class="roadmap-content">
+        <h3>Sitio web profesional + SEO base</h3>
+        <p>Lanzamos el sitio con portfolio inicial, optimización SEO técnica completa y Google Business Profile configurado. Desde el día 1, Leo Marano existe en Google.</p>
+        <div class="roadmap-tags">
+          <span class="rtag">Desarrollo Web</span>
+          <span class="rtag">SEO Técnico</span>
+          <span class="rtag">Google Business</span>
+          <span class="rtag">Analytics</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-step active">
+      <div class="roadmap-dot"></div>
+      <div>
+        <div class="roadmap-phase">Fase 02 · Conversión</div>
+        <div class="roadmap-duration">Sem 3–4</div>
+        <span class="roadmap-unit">2 semanas</span>
+      </div>
+      <div class="roadmap-content">
+        <h3>Catálogo digital + cotizador automático</h3>
+        <p>Galería organizada por categorías, formulario de cotización con estimación automática y panel admin para actualizar contenido sin asistencia técnica.</p>
+        <div class="roadmap-tags">
+          <span class="rtag">UX / UI</span>
+          <span class="rtag">Lógica de precios</span>
+          <span class="rtag">Panel admin</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-step">
+      <div class="roadmap-dot"></div>
+      <div>
+        <div class="roadmap-phase">Fase 03 · Gestión</div>
+        <div class="roadmap-duration">Sem 5–7</div>
+        <span class="roadmap-unit">3 semanas</span>
+      </div>
+      <div class="roadmap-content">
+        <h3>CRM completo + presupuestos en PDF</h3>
+        <p>Sistema de clientes con historial, pipeline visual de proyectos, generación automática de presupuestos con la marca Leo Marano y registro de pagos.</p>
+        <div class="roadmap-tags">
+          <span class="rtag">CRM a medida</span>
+          <span class="rtag">PDF Generator</span>
+          <span class="rtag">Pipeline de ventas</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-step">
+      <div class="roadmap-dot"></div>
+      <div>
+        <div class="roadmap-phase">Fase 04 · Automatización</div>
+        <div class="roadmap-duration">Sem 8–10</div>
+        <span class="roadmap-unit">3 semanas</span>
+      </div>
+      <div class="roadmap-content">
+        <h3>WhatsApp bot + dashboard de métricas</h3>
+        <p>Automatización completa del canal WhatsApp con captura de leads al CRM, respuestas inteligentes 24/7 y dashboard de gestión del negocio. El sistema funciona solo.</p>
+        <div class="roadmap-tags">
+          <span class="rtag">WhatsApp API</span>
+          <span class="rtag">Automatización</span>
+          <span class="rtag">Dashboard</span>
+          <span class="rtag">Reportes automáticos</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRECIOS -->
+<section class="precios-section reveal" id="precios">
+  <div class="precios-header">
+    <div class="eyebrow">Inversión</div>
+    <h2 class="display">Cuatro formas<br>de <em>empezar.</em><br><span class="dim">Una sola dirección.</span></h2>
+  </div>
+
+  <div class="precios-grid">
+    <div class="precio-card">
+      <span class="precio-tier">Starter</span>
+      <div class="precio-name">Presencia digital</div>
+      <div class="precio-desc">El primer paso. Existir en Google y causar una primera impresión de nivel.</div>
+      <div class="precio-amount">
+        <span class="precio-currency">USD</span>
+        <span class="precio-num">720</span>
+      </div>
+      <span class="precio-save">&nbsp;</span>
+      <ul class="precio-features">
+        <li>Sitio web profesional</li>
+        <li>SEO técnico base</li>
+        <li>Google Business Profile</li>
+        <li>Formulario de contacto + WhatsApp</li>
+      </ul>
+      <a href="https://wa.me/5491133634277?text=Hola%20Oscar%2C%20quiero%20el%20plan%20Starter" class="precio-cta" target="_blank">Comenzar →</a>
+      <div class="precio-cuota">USD 216 inicio + 2 cuotas de USD 252</div>
+    </div>
+
+    <div class="precio-card">
+      <span class="precio-tier">Lanzamiento</span>
+      <div class="precio-name">Web + ventas</div>
+      <div class="precio-desc">El sitio más el sistema que convierte visitas en consultas calificadas desde el día 1.</div>
+      <div class="precio-amount">
+        <span class="precio-currency">USD</span>
+        <span class="precio-num">1.920</span>
+      </div>
+      <span class="precio-was">Valor individual: USD 2.240</span>
+      <span class="precio-save">— Ahorro de USD 320</span>
+      <ul class="precio-features">
+        <li>Sitio web + SEO completo</li>
+        <li>Catálogo digital por categorías</li>
+        <li>Cotizador automático online</li>
+        <li>CRM de proyectos básico</li>
+        <li>Panel admin para actualizar contenido</li>
+      </ul>
+      <a href="https://wa.me/5491133634277?text=Hola%20Oscar%2C%20quiero%20el%20plan%20Lanzamiento" class="precio-cta" target="_blank">Comenzar →</a>
+      <div class="precio-cuota">USD 576 inicio + 3 cuotas de USD 448</div>
+    </div>
+
+    <div class="precio-card featured">
+      <span class="precio-tier">Crecimiento — Más elegido</span>
+      <div class="precio-name">Sistema completo de ventas</div>
+      <div class="precio-desc">El punto de inflexión. Web, catálogo, CRM y WhatsApp que trabaja mientras usted construye.</div>
+      <div class="precio-amount">
+        <span class="precio-currency">USD</span>
+        <span class="precio-num">2.320</span>
+      </div>
+      <span class="precio-was">Valor individual: USD 2.720</span>
+      <span class="precio-save">— Ahorro de USD 400</span>
+      <ul class="precio-features">
+        <li>Todo el plan Lanzamiento</li>
+        <li>WhatsApp automation 24/7</li>
+        <li>Captura automática de leads al CRM</li>
+        <li>Agenda de visitas integrada</li>
+        <li>Recordatorios automáticos</li>
+        <li>Presupuestos en PDF con su marca</li>
+      </ul>
+      <a href="https://wa.me/5491133634277?text=Hola%20Oscar%2C%20quiero%20el%20plan%20Crecimiento" class="precio-cta" target="_blank">Este es mi plan →</a>
+      <div class="precio-cuota">USD 696 inicio + 3 cuotas de USD 541</div>
+    </div>
+
+    <div class="precio-card">
+      <span class="precio-tier">Suite completa</span>
+      <div class="precio-name">La empresa entera</div>
+      <div class="precio-desc">Los 5 sistemas integrados. La operación completa automatizada. El negocio trabaja solo.</div>
+      <div class="precio-amount">
+        <span class="precio-currency">USD</span>
+        <span class="precio-num">2.800</span>
+      </div>
+      <span class="precio-was">Valor individual: USD 3.360</span>
+      <span class="precio-save">— Ahorro de USD 560</span>
+      <ul class="precio-features">
+        <li>Todo el plan Crecimiento</li>
+        <li>Dashboard de gestión completo</li>
+        <li>Reportes automáticos mensuales</li>
+        <li>KPIs de negocio en tiempo real</li>
+        <li>Calendario integrado de obras</li>
+        <li>1er año de mantenimiento Estándar incluido</li>
+      </ul>
+      <a href="https://wa.me/5491133634277?text=Hola%20Oscar%2C%20quiero%20la%20Suite%20Completa" class="precio-cta" target="_blank">Comenzar →</a>
+      <div class="precio-cuota">USD 840 inicio + 3 cuotas de USD 653</div>
+    </div>
+  </div>
+
+  <div class="eyebrow" style="margin-top: 5rem;">Mantenimiento mensual</div>
+  <div class="mant-row">
+    <div class="mant-card">
+      <span class="mant-label">Plan Básico</span>
+      <div class="mant-name">Estabilidad</div>
+      <div class="mant-desc">Actualizaciones de contenido, backups mensuales, soporte por correo y monitoreo del sitio.</div>
+      <div class="mant-price">USD 64</div>
+      <div class="mant-per">por mes</div>
+    </div>
+    <div class="mant-card">
+      <span class="mant-label">Plan Estándar</span>
+      <div class="mant-name">Crecimiento</div>
+      <div class="mant-desc">Todo lo básico más ajustes de SEO mensuales, reporte de métricas, 4 horas de mejoras incluidas.</div>
+      <div class="mant-price">USD 120</div>
+      <div class="mant-per">por mes</div>
+    </div>
+    <div class="mant-card">
+      <span class="mant-label">Plan Premium</span>
+      <div class="mant-name">Expansión</div>
+      <div class="mant-desc">Todo lo estándar más soporte WhatsApp, nuevas funcionalidades prioritarias y respuesta en menos de 4 horas.</div>
+      <div class="mant-price">USD 200</div>
+      <div class="mant-per">por mes</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-section reveal">
+  <div class="cta-bg-text"><span>Empezamos</span></div>
+  <div class="cta-content">
+    <span class="cta-eyebrow">El siguiente paso</span>
+    <h2>¿Cuándo<br>arrancamos, <em>Leo?</em></h2>
+    <p class="cta-sub">Una llamada de 30 minutos. Sin costo, sin compromiso. Le mostramos en vivo cómo quedaría su negocio digital antes de firmar nada.</p>
+    <div class="cta-btns">
+      <a href="https://wa.me/5491133634277?text=Hola%20Oscar%2C%20vi%20la%20propuesta%20y%20quiero%20agendar%20la%20llamada" class="btn-gold" target="_blank">Agendar la llamada</a>
+      <a href="https://wa.me/5491133634277?text=Hola%20Oscar%2C%20vi%20la%20propuesta%20para%20Leo%20Marano%20y%20quiero%20saber%20m%C3%A1s" class="btn-ghost" target="_blank">Escribir por WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">IT-Integral Solutions</div>
+  <div class="footer-meta">Propuesta elaborada para <a href="#" class="footer-link">Leo Marano Muebles</a> · Buenos Aires, 2026 · Documento confidencial</div>
+</footer>
+
+<script>
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.left = mx + 'px';
+  cursor.style.top = my + 'px';
+});
+(function animRing() {
+  rx += (mx - rx) * 0.12;
+  ry += (my - ry) *.12;
+  ring.style.left = rx + 'px';
+  ring.style.top = ry + 'px';
+  requestAnimationFrame(animRing);
+})();
+
+document.querySelectorAll('a, button').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    ring.style.transform = 'translate(-50%,-50%) scale(1.8)';
+    ring.style.opacity = '0.3';
+  });
+  el.addEventListener('mouseleave', () => {
+    ring.style.transform = 'translate(-50%,-50%) scale(1)';
+    ring.style.opacity = '0.6';
+  });
+});
+
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+const reveals = document.querySelectorAll('.reveal');
+const revObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+reveals.forEach(r => revObs.observe(r));
+
+const counters = document.querySelectorAll('[data-count]');
+const countObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const el = e.target;
+    const target = parseInt(el.dataset.count);
+    const suffix = el.dataset.suffix || '';
+    let current = 0;
+    const step = target / 40;
+    const timer = setInterval(() => {
+      current += step;
+      if (current >= target) { current = target; clearInterval(timer); }
+      el.textContent = Math.round(current) + suffix;
+    }, 35);
+    countObs.unobserve(el);
+  });
+}, { threshold: 0.5 });
+counters.forEach(c => countObs.observe(c));
+
+const roadmapFill = document.getElementById('roadmap-fill');
+if (roadmapFill) {
+  const lineObs = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting) {
+      let h = 0;
+      const max = roadmapFill.parentElement.offsetHeight;
+      const t = setInterval(() => {
+        h += max / 80;
+        if (h >= max) { h = max; clearInterval(t); }
+        roadmapFill.style.height = Math.round(h) + 'px';
+      }, 20);
+      lineObs.disconnect();
+    }
+  }, { threshold: 0.1 });
+  lineObs.observe(roadmapFill.parentElement);
+}
+</script>
+</body>
+</html>
