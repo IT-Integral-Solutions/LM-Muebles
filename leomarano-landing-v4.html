@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leo Marano Muebles — Muebles a Medida en Melamina · Buenos Aires</title>
+<meta name="description" content="Muebles a medida en melamina. Cocinas, placards, baños, oficinas. Fabricación propia en Buenos Aires. Presupuesto sin cargo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+
+<style>
+/* ─── TOKENS ─────────────────────────────────── */
+:root {
+  --cream:   #F7F2EB;   /* panel de melamina blanca */
+  --cream2:  #EDE5D8;   /* melamina envejecida */
+  --cream3:  #DDD3C3;   /* junta entre módulos */
+  --wood:    #8A6534;   /* canto de madera */
+  --wood2:   #B8893E;   /* melamina veta dorada */
+  --wood3:   #D4A85A;   /* luz rasante sobre madera */
+  --charcoal:#2A2118;   /* tinta de plano técnico */
+  --mid:     #6B5C48;   /* polvo de corte */
+  --light:   #FDFAF6;   /* el mueble recién terminado */
+  --rule:    rgba(42,33,24,.1);
+}
+
+/* ─── RESET ──────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--light);color:var(--charcoal);overflow-x:hidden;line-height:1.65}
+img{display:block;max-width:100%}
+a{text-decoration:none}
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:var(--cream)}
+::-webkit-scrollbar-thumb{background:var(--wood);border-radius:2px}
+
+/* ─── NAV ─────────────────────────────────────── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:900;
+  height:80px;padding:0 4rem;
+  display:flex;align-items:center;justify-content:space-between;
+  transition:all .4s ease;
+}
+nav.scrolled{
+  background:rgba(253,250,246,.96);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--rule);
+  height:64px;
+}
+.nav-logo img{
+  height:44px;width:auto;
+  /* logo blanco sobre fondo claro → lo invertimos para que sea negro */
+  filter:brightness(0);
+  transition:height .3s;
+}
+nav.scrolled .nav-logo img{height:36px}
+.nav-links{display:flex;align-items:center;gap:2.5rem}
+.nav-link{
+  font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--mid);font-weight:500;
+  position:relative;padding-bottom:2px;
+}
+.nav-link::after{
+  content:'';position:absolute;bottom:0;left:0;
+  width:0;height:1px;background:var(--wood);
+  transition:width .3s ease;
+}
+.nav-link:hover{color:var(--charcoal)}
+.nav-link:hover::after{width:100%}
+.nav-cta{
+  font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:600;color:var(--light);background:var(--charcoal);
+  padding:12px 26px;transition:all .25s;
+  border:2px solid var(--charcoal);
+  display:flex;align-items:center;gap:9px;
+}
+.nav-cta:hover{background:var(--wood);border-color:var(--wood)}
+
+/* ─── HERO ────────────────────────────────────── */
+.hero{
+  min-height:100vh;
+  display:grid;grid-template-columns:1fr 1fr;
+  position:relative;overflow:hidden;
+}
+/* izquierda: contenido */
+.hero-left{
+  background:var(--charcoal);
+  padding:10rem 4rem 5rem;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  position:relative;z-index:10;
+}
+/* líneas de módulo — mensaje oculto: precisión de carpintero */
+.hero-left::before{
+  content:'';position:absolute;top:0;left:0;bottom:0;width:1px;
+  background:linear-gradient(to bottom,transparent,rgba(184,137,62,.4) 30%,rgba(184,137,62,.4) 70%,transparent);
+}
+.hero-eyebrow{
+  display:flex;align-items:center;gap:14px;margin-bottom:3rem;
+  opacity:0;animation:reveal .8s .3s ease forwards;
+}
+.hero-eyebrow-line{width:40px;height:1px;background:var(--wood3)}
+.hero-eyebrow-text{
+  font-size:.65rem;letter-spacing:.3em;color:var(--wood3);
+  text-transform:uppercase;font-weight:600;
+}
+.hero h1{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(4rem,6.5vw,7rem);
+  font-weight:300;line-height:.95;
+  color:var(--light);margin-bottom:2.5rem;
+}
+.hero h1 em{font-style:italic;color:var(--wood3)}
+.hero h1 .h-l1{opacity:0;animation:slidein .9s .5s ease forwards}
+.hero h1 .h-l2{opacity:0;animation:slidein .9s .75s ease forwards}
+.hero h1 .h-l3{opacity:0;animation:slidein .9s 1s ease forwards}
+.hero-sub{
+  font-size:1.05rem;color:rgba(253,250,246,.55);
+  max-width:380px;line-height:1.85;font-weight:300;
+  margin-bottom:3.5rem;
+  opacity:0;animation:reveal .8s 1.3s ease forwards;
+}
+.hero-actions{
+  display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap;
+  opacity:0;animation:reveal .8s 1.6s ease forwards;
+}
+.btn-light{
+  font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;
+  font-weight:600;color:var(--charcoal);background:var(--light);
+  padding:16px 34px;transition:all .3s;
+  display:inline-flex;align-items:center;gap:10px;
+  border:2px solid var(--light);
+}
+.btn-light:hover{background:var(--wood3);border-color:var(--wood3);color:var(--light)}
+.btn-ghost-light{
+  font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:500;color:rgba(253,250,246,.5);
+  border:1px solid rgba(253,250,246,.2);
+  padding:15px 28px;transition:all .25s;
+}
+.btn-ghost-light:hover{color:var(--light);border-color:rgba(253,250,246,.5)}
+
+/* derecha: imagen con módulo superpuesto */
+.hero-right{position:relative;overflow:hidden}
+.hero-right img{
+  width:100%;height:100%;object-fit:cover;
+  transform:scale(1.08);
+  transition:transform 12s ease;
+}
+.hero-right.loaded img{transform:scale(1)}
+/* overlay tipo panel de madera */
+.hero-panel-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(42,33,24,.35) 0%,transparent 60%);
+}
+/* módulo flotante — mensaje: "esto es precisión" */
+.hero-module{
+  position:absolute;bottom:3rem;left:3rem;right:3rem;
+  background:rgba(253,250,246,.95);
+  backdrop-filter:blur(8px);
+  padding:2rem 2.5rem;
+  border-left:3px solid var(--wood);
+  opacity:0;animation:slideup .8s 2s ease forwards;
+}
+.hero-module-text{
+  font-size:.7rem;letter-spacing:.18em;color:var(--mid);
+  text-transform:uppercase;font-weight:500;margin-bottom:.5rem;
+}
+.hero-module-num{
+  font-family:'Cormorant Garamond',serif;
+  font-size:2.8rem;font-weight:300;color:var(--charcoal);line-height:1;
+}
+.hero-module-num em{font-style:italic;color:var(--wood)}
+
+/* stats al pie de la izquierda */
+.hero-stats{
+  display:flex;gap:2.5rem;margin-top:2.5rem;
+  padding-top:2.5rem;border-top:1px solid rgba(253,250,246,.12);
+  opacity:0;animation:reveal .8s 1.9s ease forwards;
+}
+.hstat-n{
+  font-family:'Cormorant Garamond',serif;
+  font-size:2.2rem;font-weight:300;color:var(--light);
+  display:block;line-height:1;
+}
+.hstat-l{font-size:.6rem;letter-spacing:.15em;color:rgba(253,250,246,.4);text-transform:uppercase;margin-top:4px;display:block}
+
+/* ─── TICKER ─────────────────────────────────── */
+.ticker{
+  background:var(--wood);
+  overflow:hidden;padding:14px 0;
+}
+.ticker-track{
+  display:flex;white-space:nowrap;
+  animation:ticker 22s linear infinite;
+}
+.ticker-item{
+  font-size:.72rem;letter-spacing:.22em;color:var(--light);
+  text-transform:uppercase;padding:0 2.5rem;
+  display:inline-flex;align-items:center;gap:2.5rem;
+  font-weight:500;
+}
+.tdot{width:4px;height:4px;border-radius:50%;background:rgba(253,250,246,.4);flex-shrink:0}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ─── SISTEMA DE SECCIÓN ─────────────────────── */
+.section{padding:8rem 4rem;position:relative}
+.section-border{border-top:1px solid var(--rule)}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:12px;
+  font-size:.63rem;letter-spacing:.28em;color:var(--wood);
+  text-transform:uppercase;font-weight:600;margin-bottom:1.8rem;
+}
+.eyebrow::before{content:'';width:28px;height:1px;background:var(--wood)}
+h2{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2.6rem,5vw,4.5rem);
+  font-weight:300;line-height:1.06;
+  color:var(--charcoal);letter-spacing:-.01em;
+}
+h2 em{font-style:italic;color:var(--wood)}
+h2 .dim{color:var(--cream3)}
+
+/* ─── MANIFIESTO (mensaje oculto) ────────────── */
+.manif{
+  background:var(--charcoal);
+  padding:7rem 4rem;
+}
+.manif-inner{
+  max-width:900px;margin:0 auto;text-align:center;
+}
+.manif-quote{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2rem,4.5vw,3.8rem);
+  font-weight:300;color:var(--light);
+  line-height:1.3;font-style:italic;
+  margin-bottom:2rem;
+}
+.manif-quote strong{
+  font-style:normal;font-weight:400;
+  color:var(--wood3);
+}
+.manif-attr{
+  font-size:.72rem;letter-spacing:.2em;color:rgba(253,250,246,.35);
+  text-transform:uppercase;
+}
+
+/* ─── ABOUT ──────────────────────────────────── */
+.about-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:0;background:var(--rule);
+  border-top:1px solid var(--rule);
+  border-left:1px solid var(--rule);
+}
+.about-cell{
+  background:var(--light);
+  border-right:1px solid var(--rule);
+  border-bottom:1px solid var(--rule);
+  padding:3.5rem;
+  transition:background .3s;
+}
+.about-cell:hover{background:var(--cream)}
+.about-num{
+  font-family:'Cormorant Garamond',serif;
+  font-size:4.5rem;font-weight:300;color:var(--wood);
+  line-height:1;display:block;margin-bottom:.8rem;
+}
+.about-label{font-size:.85rem;color:var(--mid);line-height:1.7}
+.about-label strong{color:var(--charcoal);font-weight:600;display:block;margin-bottom:4px;font-size:.9rem}
+
+/* ─── SERVICIOS ──────────────────────────────── */
+.svc-intro-row{
+  display:grid;grid-template-columns:1.2fr 1fr;
+  gap:5rem;align-items:end;margin-bottom:5rem;
+}
+.svc-lead{
+  font-size:1.05rem;color:var(--mid);line-height:1.9;
+  border-left:2px solid var(--wood);padding-left:1.5rem;
+}
+.svc-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:var(--rule);
+}
+.svc-card{
+  background:var(--light);overflow:hidden;
+  position:relative;
+  transition:background .3s;
+}
+.svc-card:hover{background:var(--cream)}
+.svc-img{
+  height:240px;overflow:hidden;position:relative;
+}
+.svc-img img{
+  width:100%;height:100%;object-fit:cover;
+  filter:saturate(.8) brightness(.85);
+  transition:transform .7s ease,filter .4s;
+}
+.svc-card:hover .svc-img img{
+  transform:scale(1.06);
+  filter:saturate(.95) brightness(.9);
+}
+.svc-body{padding:2rem 2.2rem}
+.svc-n{
+  font-size:.6rem;letter-spacing:.22em;color:var(--wood);
+  text-transform:uppercase;font-weight:600;margin-bottom:.7rem;display:block;
+}
+.svc-body h3{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.6rem;font-weight:400;color:var(--charcoal);
+  margin-bottom:.6rem;line-height:1.2;
+}
+.svc-body p{font-size:.83rem;color:var(--mid);line-height:1.8}
+/* tarjeta de cierre — color madero */
+.svc-cta{
+  background:var(--charcoal);
+  display:flex;flex-direction:column;justify-content:center;
+  align-items:flex-start;padding:3rem 2.5rem;
+  min-height:200px;
+}
+.svc-cta p{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.7rem;font-weight:300;font-style:italic;
+  color:var(--light);line-height:1.3;margin-bottom:2rem;
+}
+.btn-wood{
+  font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;
+  font-weight:600;color:var(--charcoal);background:var(--wood3);
+  padding:14px 28px;transition:all .25s;
+  display:inline-flex;align-items:center;gap:8px;border:2px solid var(--wood3);
+}
+.btn-wood:hover{background:var(--light);border-color:var(--light)}
+
+/* ─── GALERÍA ────────────────────────────────── */
+.gal-section{background:var(--cream);padding:8rem 4rem}
+.gal-intro{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:5rem;align-items:end;margin-bottom:4rem;
+}
+.gal-note{font-size:.85rem;color:var(--mid);line-height:1.8;text-align:right}
+.gal-grid{
+  display:grid;
+  grid-template-columns:1.65fr 1fr 1fr;
+  grid-template-rows:340px 260px;
+  gap:4px;
+}
+.gi{overflow:hidden;position:relative;background:var(--cream3)}
+.gi.tall{grid-row:span 2}
+.gi img{
+  width:100%;height:100%;object-fit:cover;
+  filter:saturate(.85);
+  transition:transform .65s ease,filter .4s;
+}
+.gi:hover img{transform:scale(1.05);filter:saturate(1)}
+.gi-label{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:.9rem 1.2rem;
+  background:linear-gradient(transparent,rgba(42,33,24,.65));
+  opacity:0;transform:translateY(6px);
+  transition:all .3s;
+}
+.gi:hover .gi-label{opacity:1;transform:none}
+.gi-label span{
+  font-size:.63rem;letter-spacing:.18em;
+  color:rgba(253,250,246,.9);text-transform:uppercase;font-weight:600;
+}
+
+/* ─── PROCESO ────────────────────────────────── */
+.proc-section{padding:8rem 4rem;border-top:1px solid var(--rule)}
+.proc-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:0;border-top:1px solid var(--rule);
+  border-left:1px solid var(--rule);
+  margin-top:4rem;
+}
+.step{
+  border-right:1px solid var(--rule);
+  border-bottom:1px solid var(--rule);
+  padding:3rem 2.5rem;position:relative;overflow:hidden;
+  transition:background .3s;
+}
+.step::after{
+  content:'';position:absolute;top:0;left:0;right:0;
+  height:2px;background:var(--wood);
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .5s ease;
+}
+.step:hover{background:var(--cream)}
+.step:hover::after{transform:scaleX(1)}
+.step-n{
+  font-family:'Cormorant Garamond',serif;
+  font-size:5rem;font-weight:300;color:var(--cream2);
+  line-height:1;display:block;margin-bottom:1.5rem;
+  transition:color .3s;
+}
+.step:hover .step-n{color:rgba(138,101,52,.2)}
+.step h3{font-size:.95rem;font-weight:600;color:var(--charcoal);margin-bottom:.6rem}
+.step p{font-size:.8rem;color:var(--mid);line-height:1.8}
+
+/* ─── POR QUÉ ─────────────────────────────────── */
+.why-section{background:var(--cream);padding:8rem 4rem}
+.why-grid{
+  display:grid;grid-template-columns:repeat(2,1fr);
+  gap:1px;background:var(--cream3);
+  margin-top:4rem;
+}
+.why-card{
+  background:var(--cream);padding:3.5rem;
+  transition:background .3s;position:relative;overflow:hidden;
+}
+.why-card::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;
+  width:2px;background:var(--wood);
+  transform:scaleY(0);transform-origin:top;
+  transition:transform .45s ease;
+}
+.why-card:hover{background:var(--light)}
+.why-card:hover::before{transform:scaleY(1)}
+.why-icon{
+  width:44px;height:44px;border:1px solid var(--cream3);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:1.6rem;transition:border-color .3s;
+}
+.why-card:hover .why-icon{border-color:var(--wood)}
+.why-icon svg{width:20px;height:20px;stroke:var(--wood);fill:none;stroke-width:1.5}
+.why-card h3{font-size:1rem;font-weight:600;color:var(--charcoal);margin-bottom:.6rem}
+.why-card p{font-size:.82rem;color:var(--mid);line-height:1.85}
+
+/* ─── MENSAJE OCULTO — La regla de la melamina ── */
+.rule-section{
+  padding:6rem 4rem;border-top:1px solid var(--rule);
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:var(--rule);
+}
+.rule-card{
+  background:var(--light);padding:3rem;
+  text-align:center;
+}
+.rule-card-n{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1rem;font-weight:400;color:var(--wood);
+  letter-spacing:.1em;display:block;margin-bottom:1rem;
+}
+.rule-card-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.8rem;font-weight:400;color:var(--charcoal);
+  margin-bottom:.8rem;line-height:1.2;
+}
+.rule-card-body{font-size:.82rem;color:var(--mid);line-height:1.85}
+
+/* ─── TESTIMONIOS ─────────────────────────────── */
+.testi-section{background:var(--charcoal);padding:8rem 4rem}
+.testi-section .eyebrow{color:var(--wood3)}
+.testi-section .eyebrow::before{background:var(--wood3)}
+.testi-section h2{color:var(--light)}
+.testi-section h2 em{color:var(--wood3)}
+.tgrid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:rgba(253,250,246,.08);
+  margin-top:4rem;
+}
+.tcard{
+  background:var(--charcoal);padding:3rem;
+  transition:background .3s;position:relative;overflow:hidden;
+}
+.tcard::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;
+  height:1px;background:var(--wood);
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .5s;
+}
+.tcard:hover{background:#1E1810}
+.tcard:hover::after{transform:scaleX(1)}
+.tstars{display:flex;gap:4px;margin-bottom:1.4rem}
+.tstar{
+  width:12px;height:12px;background:var(--wood3);
+  clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
+}
+.ttext{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.15rem;font-style:italic;font-weight:300;
+  color:var(--light);line-height:1.75;margin-bottom:1.6rem;
+}
+.tauthor strong{color:var(--wood3);display:block;font-size:.8rem;margin-bottom:3px}
+.tauthor{font-size:.72rem;color:rgba(253,250,246,.4);letter-spacing:.06em}
+
+/* ─── CTA FINAL ──────────────────────────────── */
+.cta-section{
+  padding:10rem 4rem;background:var(--wood);
+  text-align:center;position:relative;overflow:hidden;
+}
+.cta-bg-word{
+  position:absolute;inset:0;display:flex;align-items:center;
+  justify-content:center;z-index:0;pointer-events:none;overflow:hidden;
+}
+.cta-bg-word span{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(10rem,24vw,22rem);
+  font-weight:300;color:rgba(253,250,246,.06);
+  white-space:nowrap;letter-spacing:-.02em;
+  user-select:none;
+}
+.cta-inner{position:relative;z-index:10}
+.cta-section .eyebrow{color:rgba(253,250,246,.65);justify-content:center}
+.cta-section .eyebrow::before{background:rgba(253,250,246,.4)}
+.cta-section h2{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(3rem,6.5vw,5.5rem);font-weight:300;
+  color:var(--light);margin-bottom:1.2rem;
+}
+.cta-section h2 em{font-style:italic;color:rgba(253,250,246,.8)}
+.cta-sub{
+  font-size:1.05rem;color:rgba(253,250,246,.72);
+  max-width:460px;margin:0 auto 3.5rem;line-height:1.9;font-weight:300;
+}
+.cta-btns{display:flex;justify-content:center;gap:1.2rem;flex-wrap:wrap}
+.btn-light-cta{
+  font-size:.76rem;letter-spacing:.18em;text-transform:uppercase;
+  font-weight:600;color:var(--wood);background:var(--light);
+  padding:18px 42px;display:inline-flex;align-items:center;gap:12px;
+  transition:all .3s;border:2px solid var(--light);
+}
+.btn-light-cta:hover{background:var(--charcoal);border-color:var(--charcoal);color:var(--light)}
+.btn-outline-cta{
+  font-size:.73rem;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:500;color:rgba(253,250,246,.75);
+  border:1px solid rgba(253,250,246,.3);
+  padding:17px 34px;transition:all .28s;
+  display:inline-flex;align-items:center;gap:10px;
+}
+.btn-outline-cta:hover{color:var(--light);border-color:rgba(253,250,246,.7)}
+
+/* ─── WA FLOTANTE ─────────────────────────────── */
+.float-wa{
+  position:fixed;bottom:2.5rem;right:2.5rem;z-index:700;
+  width:60px;height:60px;background:var(--wood);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 6px 28px rgba(138,101,52,.4);
+  transition:all .3s;
+}
+.float-wa:hover{background:var(--charcoal);transform:scale(1.1)}
+.float-wa svg{width:27px;height:27px;fill:var(--light)}
+/* pulso */
+.float-wa::before{
+  content:'';position:absolute;inset:0;border-radius:50%;
+  background:var(--wood);animation:wpulse 2.5s ease-in-out infinite;z-index:-1;
+}
+@keyframes wpulse{0%{transform:scale(1);opacity:.6}70%{transform:scale(1.45);opacity:0}100%{transform:scale(1.45);opacity:0}}
+
+/* ─── FOOTER ──────────────────────────────────── */
+footer{
+  background:var(--charcoal);
+  padding:5rem 4rem 3rem;
+}
+.ftop{
+  display:grid;grid-template-columns:1.4fr 1fr 1fr;
+  gap:4rem;margin-bottom:4rem;
+}
+.flogo img{
+  height:44px;width:auto;
+  filter:invert(1);
+  opacity:.85;margin-bottom:1.5rem;
+}
+.ftagline{font-size:.88rem;color:rgba(253,250,246,.4);line-height:1.85;max-width:260px}
+.fcol h4{
+  font-size:.63rem;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--wood3);font-weight:600;margin-bottom:1.4rem;
+}
+.flinks{list-style:none;display:flex;flex-direction:column;gap:.8rem}
+.flinks a{
+  font-size:.84rem;color:rgba(253,250,246,.4);
+  display:flex;align-items:center;gap:10px;
+  transition:color .2s;
+}
+.flinks a:hover{color:var(--light)}
+.flinks a::before{content:'';width:10px;height:1px;background:var(--wood);flex-shrink:0}
+.fbot{
+  border-top:1px solid rgba(253,250,246,.08);
+  padding-top:2.5rem;display:flex;align-items:center;
+  justify-content:space-between;flex-wrap:wrap;gap:1rem;
+}
+.fcopy,.fmade{font-size:.7rem;color:rgba(253,250,246,.25);letter-spacing:.06em}
+.fmade a{color:var(--wood3)}
+
+/* ─── ANIMACIONES CSS ─────────────────────────── */
+@keyframes reveal{
+  from{opacity:0;transform:translateY(24px)}
+  to{opacity:1;transform:none}
+}
+@keyframes slidein{
+  from{opacity:0;transform:translateX(-32px)}
+  to{opacity:1;transform:none}
+}
+@keyframes slideup{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:none}
+}
+
+/* Scroll reveal classes */
+.sr{opacity:0;transform:translateY(32px);transition:opacity .75s ease,transform .75s ease}
+.sr.on{opacity:1;transform:none}
+.sr-l{opacity:0;transform:translateX(-32px);transition:opacity .75s ease,transform .75s ease}
+.sr-l.on{opacity:1;transform:none}
+.sr-r{opacity:0;transform:translateX(32px);transition:opacity .75s ease,transform .75s ease}
+.sr-r.on{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+
+/* ─── RESPONSIVE ──────────────────────────────── */
+@media(max-width:1100px){
+  .hero{grid-template-columns:1fr}
+  .hero-right{height:55vw}
+  .svc-grid{grid-template-columns:1fr 1fr}
+  .proc-grid{grid-template-columns:1fr 1fr}
+  .gal-grid{grid-template-columns:1fr 1fr;grid-template-rows:260px 260px 260px}
+  .gi.tall{grid-row:span 1}
+  .ftop{grid-template-columns:1fr 1fr}
+}
+@media(max-width:700px){
+  nav{padding:0 1.5rem}.nav-links{display:none}
+  .hero-left{padding:8rem 1.5rem 4rem}
+  .section,.svc-section,.gal-section,.proc-section,.why-section,.testi-section,.cta-section,.rule-section{padding:5rem 1.5rem}
+  .about-grid,.why-grid,.tgrid{grid-template-columns:1fr}
+  .svc-grid,.proc-grid{grid-template-columns:1fr}
+  .svc-intro-row,.gal-intro{grid-template-columns:1fr}
+  .rule-section{grid-template-columns:1fr}
+  .ftop{grid-template-columns:1fr;gap:2.5rem}
+  .fbot{flex-direction:column;text-align:center}
+  .float-wa{bottom:1.5rem;right:1.5rem}
+}
+</style>
+</head>
+<body>
+
+<!-- WA FLOTANTE -->
+<a href="https://wa.me/5491125002252?text=Hola%20Leo%2C%20quiero%20un%20presupuesto%20para%20un%20mueble%20a%20medida" class="float-wa" target="_blank">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-logo">
+    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAEeAR4DASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD7LooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiig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" alt="Leo Marano Muebles">
+  </div>
+  <div class="nav-links">
+    <a href="#servicios" class="nav-link">Servicios</a>
+    <a href="#trabajos" class="nav-link">Trabajos</a>
+    <a href="#proceso" class="nav-link">Proceso</a>
+    <a href="#contacto" class="nav-link">Contacto</a>
+  </div>
+  <a href="https://wa.me/5491125002252?text=Hola%20Leo%2C%20quiero%20un%20presupuesto" class="nav-cta" target="_blank">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    Presupuesto gratis
+  </a>
+</nav>
+
+<!-- HERO: split layout — charcoal + foto real -->
+<section class="hero" id="inicio">
+  <div class="hero-left">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-line"></div>
+      <div class="hero-eyebrow-text">Buenos Aires · Fabricación propia · Melamina</div>
+    </div>
+
+    <h1>
+      <span class="h-l1">Muebles</span><br>
+      <span class="h-l2">que <em>duran</em></span><br>
+      <span class="h-l3">toda la vida</span>
+    </h1>
+
+    <p class="hero-sub">Diseñamos y fabricamos muebles a medida en melamina. Cada pieza pensada para tu espacio, instalada por nosotros.</p>
+
+    <div class="hero-actions">
+      <a href="https://wa.me/5491125002252?text=Hola%20Leo%2C%20quiero%20pedir%20un%20presupuesto" class="btn-light" target="_blank">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Pedí tu presupuesto
+      </a>
+      <a href="#trabajos" class="btn-ghost-light">Ver trabajos →</a>
+    </div>
+
+    <div class="hero-stats">
+      <div>
+        <span class="hstat-n">+10</span>
+        <span class="hstat-l">Años en el rubro</span>
+      </div>
+      <div>
+        <span class="hstat-n">100%</span>
+        <span class="hstat-l">Fab. propia</span>
+      </div>
+      <div>
+        <span class="hstat-n">CABA</span>
+        <span class="hstat-l">Buenos Aires</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right" id="heror">
+    <img src="https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=1400&q=90&fit=crop&crop=center"
+         alt="Cocina a medida en melamina"
+         onload="document.getElementById('heror').classList.add('loaded')">
+    <div class="hero-panel-overlay"></div>
+    <div class="hero-module">
+      <div class="hero-module-text">Nuestro compromiso</div>
+      <div class="hero-module-num">Precio cerrado<br><em>desde el día 1.</em></div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track">
+    <div class="ticker-item">Cocinas<span class="tdot"></span></div>
+    <div class="ticker-item">Placards<span class="tdot"></span></div>
+    <div class="ticker-item">Vestidores<span class="tdot"></span></div>
+    <div class="ticker-item">Muebles de baño<span class="tdot"></span></div>
+    <div class="ticker-item">Escritorios<span class="tdot"></span></div>
+    <div class="ticker-item">Oficinas<span class="tdot"></span></div>
+    <div class="ticker-item">Alacenas<span class="tdot"></span></div>
+    <div class="ticker-item">Estanterías<span class="tdot"></span></div>
+    <div class="ticker-item">Bajo Mesada<span class="tdot"></span></div>
+    <div class="ticker-item">Melamina premium<span class="tdot"></span></div>
+    <div class="ticker-item">Cocinas<span class="tdot"></span></div>
+    <div class="ticker-item">Placards<span class="tdot"></span></div>
+    <div class="ticker-item">Vestidores<span class="tdot"></span></div>
+    <div class="ticker-item">Muebles de baño<span class="tdot"></span></div>
+    <div class="ticker-item">Escritorios<span class="tdot"></span></div>
+    <div class="ticker-item">Oficinas<span class="tdot"></span></div>
+    <div class="ticker-item">Alacenas<span class="tdot"></span></div>
+    <div class="ticker-item">Estanterías<span class="tdot"></span></div>
+    <div class="ticker-item">Bajo Mesada<span class="tdot"></span></div>
+    <div class="ticker-item">Melamina premium<span class="tdot"></span></div>
+  </div>
+</div>
+
+<!-- MANIFIESTO — mensaje oculto sobre el valor del carpintero premium -->
+<section class="manif">
+  <div class="manif-inner sr">
+    <p class="manif-quote">
+      "Un mueble barato ocupa el mismo espacio que uno bien hecho.<br>
+      La diferencia es que el <strong>bien hecho</strong> sigue ahí en diez años."
+    </p>
+    <div class="manif-attr">Leo Marano · Fabricación propia · Buenos Aires</div>
+  </div>
+</section>
+
+<!-- ABOUT — números que hablan -->
+<section class="section section-border" id="nosotros">
+  <div style="max-width:560px;margin-bottom:4rem" class="sr">
+    <div class="eyebrow">Quiénes somos</div>
+    <h2>Carpintería <em>de oficio</em>,<br>calidad de fábrica</h2>
+  </div>
+  <div class="about-grid sr">
+    <div class="about-cell d1">
+      <span class="about-num counter" data-target="10" data-suffix="+">0+</span>
+      <div class="about-label"><strong>Años en el rubro</strong>Fabricando muebles a medida en melamina para hogares y oficinas de Buenos Aires.</div>
+    </div>
+    <div class="about-cell d2">
+      <span class="about-num">100%</span>
+      <div class="about-label"><strong>Fabricación propia</strong>No tercerizamos. Todo nace y termina en nuestro taller bajo nuestro control.</div>
+    </div>
+    <div class="about-cell d1">
+      <span class="about-num" style="font-size:3rem">Precio<br>cerrado</span>
+      <div class="about-label"><strong>Sin sorpresas</strong>Presupuestamos en detalle antes de empezar. El número que acordamos es el que pagás.</div>
+    </div>
+    <div class="about-cell d2">
+      <span class="about-num">★★★★★</span>
+      <div class="about-label"><strong>Clientes que vuelven</strong>La mayoría de nuestros trabajos llegan por recomendación. Eso habla solo.</div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICIOS -->
+<section class="section section-border" id="servicios">
+  <div class="svc-intro-row sr">
+    <div>
+      <div class="eyebrow">Lo que hacemos</div>
+      <h2>Cada espacio,<br><em>un mueble</em><br><span class="dim">a tu medida</span></h2>
+    </div>
+    <p class="svc-lead">Trabajamos en melamina de alta calidad con herrajes de primera. No importa el tamaño del espacio: lo aprovechamos al máximo con soluciones pensadas para durar.</p>
+  </div>
+  <div class="svc-grid">
+    <div class="svc-card sr d1">
+      <div class="svc-img"><img src="https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=600&q=85&fit=crop&crop=center" alt="Cocinas" loading="lazy"></div>
+      <div class="svc-body"><span class="svc-n">01 · Cocinas</span><h3>Cocinas & alacenas</h3><p>Bajo mesada, alacenas y módulos. Cada centímetro aprovechado con melamina resistente a la humedad.</p></div>
+    </div>
+    <div class="svc-card sr d2">
+      <div class="svc-img"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=85&fit=crop&crop=center" alt="Placards" loading="lazy"></div>
+      <div class="svc-body"><span class="svc-n">02 · Dormitorios</span><h3>Placards & vestidores</h3><p>Puertas corredizas o batientes, interiores organizados con cajones, estantes y colgadores.</p></div>
+    </div>
+    <div class="svc-card sr d3">
+      <div class="svc-img"><img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=600&q=85&fit=crop&crop=center" alt="Baños" loading="lazy"></div>
+      <div class="svc-body"><span class="svc-n">03 · Baños</span><h3>Muebles de baño</h3><p>Vanitorios y módulos con melamina especial resistente a la humedad. Funcionales y con buena terminación.</p></div>
+    </div>
+    <div class="svc-card sr d1">
+      <div class="svc-img"><img src="https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=600&q=85&fit=crop&crop=center" alt="Oficinas" loading="lazy"></div>
+      <div class="svc-body"><span class="svc-n">04 · Oficinas</span><h3>Escritorios & oficinas</h3><p>Escritorios a medida, bibliotecas y módulos para home office y espacios profesionales.</p></div>
+    </div>
+    <div class="svc-card sr d2">
+      <div class="svc-img"><img src="https://images.unsplash.com/photo-1600489000022-c2086d79f9d4?w=600&q=85&fit=crop&crop=center" alt="Estanterías" loading="lazy"></div>
+      <div class="svc-body"><span class="svc-n">05 · Almacenamiento</span><h3>Estanterías & bibliotecas</h3><p>Estanterías flotantes y bibliotecas empotradas para living, pasillos y cualquier rincón.</p></div>
+    </div>
+    <div class="svc-cta sr d3">
+      <p>"¿Tu proyecto no está en la lista? Igual podemos hacerlo."</p>
+      <a href="https://wa.me/5491125002252?text=Hola%20Leo%2C%20tengo%20un%20proyecto%20especial" class="btn-wood" target="_blank">Consultanos →</a>
+    </div>
+  </div>
+</section>
+
+<!-- GALERÍA -->
+<section class="gal-section" id="trabajos">
+  <div class="gal-intro sr">
+    <div>
+      <div class="eyebrow">Galería de trabajos</div>
+      <h2>El trabajo<br>habla <em>por sí solo</em></h2>
+    </div>
+    <p class="gal-note">Cada proyecto es único. Medimos, diseñamos y fabricamos según las necesidades reales de cada cliente.</p>
+  </div>
+  <div class="gal-grid sr">
+    <div class="gi tall"><img src="https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=900&q=85&fit=crop&crop=center" alt="Cocina integral" loading="lazy"><div class="gi-label"><span>Cocina integral a medida</span></div></div>
+    <div class="gi"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=85&fit=crop&crop=center" alt="Placard" loading="lazy"><div class="gi-label"><span>Placard piso a techo</span></div></div>
+    <div class="gi"><img src="https://images.unsplash.com/photo-1600489000022-c2086d79f9d4?w=700&q=85&fit=crop&crop=center" alt="Biblioteca" loading="lazy"><div class="gi-label"><span>Biblioteca a medida</span></div></div>
+    <div class="gi"><img src="https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=700&q=85&fit=crop&crop=center" alt="Escritorio" loading="lazy"><div class="gi-label"><span>Escritorio home office</span></div></div>
+    <div class="gi"><img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=700&q=85&fit=crop&crop=center" alt="Baño" loading="lazy"><div class="gi-label"><span>Mueble de baño</span></div></div>
+  </div>
+</section>
+
+<!-- PROCESO -->
+<section class="proc-section sr" id="proceso">
+  <div class="eyebrow">Cómo trabajamos</div>
+  <h2>Simple, claro<br>y <em>sin sorpresas</em></h2>
+  <div class="proc-grid">
+    <div class="step d1"><span class="step-n">01</span><h3>Consulta sin cargo</h3><p>Nos contás qué necesitás. Por WhatsApp, teléfono o en persona. Respondemos rápido y sin vueltas.</p></div>
+    <div class="step d2"><span class="step-n">02</span><h3>Medición y diseño</h3><p>Vamos al lugar, tomamos medidas y presentamos el diseño con materiales, colores y precio cerrado.</p></div>
+    <div class="step d1"><span class="step-n">03</span><h3>Fabricación propia</h3><p>Fabricamos en nuestro taller con melamina de calidad. Controlamos cada detalle antes de salir a instalar.</p></div>
+    <div class="step d2"><span class="step-n">04</span><h3>Instalación y entrega</h3><p>Instalamos nosotros. El trabajo queda terminado y prolijo. No nos vamos hasta que el cliente esté conforme.</p></div>
+  </div>
+</section>
+
+<!-- POR QUÉ -->
+<section class="why-section sr">
+  <div style="max-width:560px;margin-bottom:0">
+    <div class="eyebrow">Por qué elegirnos</div>
+    <h2>La diferencia está<br>en los <em>detalles</em></h2>
+  </div>
+  <div class="why-grid">
+    <div class="why-card d1">
+      <div class="why-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+      <h3>Fabricación 100% propia</h3>
+      <p>No tercerizamos. Todo se hace en nuestro taller. Controlamos la calidad en cada etapa y cumplimos los plazos acordados.</p>
+    </div>
+    <div class="why-card d2">
+      <div class="why-icon"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></div>
+      <h3>Precio cerrado desde el inicio</h3>
+      <p>Presupuestamos en detalle. El número que acordamos es el que pagás. Sin sorpresas ni adicionales.</p>
+    </div>
+    <div class="why-card d1">
+      <div class="why-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+      <h3>Cumplimos los plazos</h3>
+      <p>El cliente sabe cuándo va a tener su mueble antes de que empecemos. Y lo cumplimos.</p>
+    </div>
+    <div class="why-card d2">
+      <div class="why-icon"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
+      <h3>Atención directa y personal</h3>
+      <p>Hablás con quien hace el trabajo. Sin vendedores ni intermediarios, de principio a fin.</p>
+    </div>
+  </div>
+</section>
+
+<!-- REGLA DE LA MELAMINA — mensajes ocultos de valor -->
+<section class="rule-section sr">
+  <div class="rule-card d1">
+    <span class="rule-card-n">La regla del buen mueble</span>
+    <div class="rule-card-title">Se mide dos veces,<br>se corta una</div>
+    <p class="rule-card-body">Un carpintero premium no improvisa. Cada medida es exacta. Cada módulo encaja. No hay parches ni "queda cerca".</p>
+  </div>
+  <div class="rule-card d2">
+    <span class="rule-card-n">La diferencia visible</span>
+    <div class="rule-card-title">El canto termina<br>donde tiene que terminar</div>
+    <p class="rule-card-body">Las terminaciones son lo que separa el trabajo bueno del trabajo premium. En Leo Marano, no hay cantos sin repasar ni bisagras flojas.</p>
+  </div>
+  <div class="rule-card d3">
+    <span class="rule-card-n">La inversión que vale</span>
+    <div class="rule-card-title">Un mueble bien hecho<br>no se reemplaza</div>
+    <p class="rule-card-body">Un mueble barato cuesta dos veces: lo que pagás y lo que pagás de nuevo cuando falla. El nuestro lo instalás una sola vez.</p>
+  </div>
+</section>
+
+<!-- TESTIMONIOS -->
+<section class="testi-section sr" id="testimonios">
+  <div class="eyebrow">Lo que dicen los clientes</div>
+  <h2>Resultados que<br><em>hablan solos</em></h2>
+  <div class="tgrid">
+    <div class="tcard d1"><div class="tstars"><div class="tstar"></div><div class="tstar"></div><div class="tstar"></div><div class="tstar"></div><div class="tstar"></div></div><p class="ttext">"Nos hicieron toda la cocina a medida y quedó perfecta. Los módulos encajaron justo donde prometieron. Muy buena terminación."</p><div class="tauthor"><strong>Valeria M.</strong>Caballito, Buenos Aires</div></div>
+    <div class="tcard d2"><div class="tstars"><div class="tstar"></div><div class="tstar"></div><div class="tstar"></div><div class="tstar"></div><div class="tstar"></div></div><p class="ttext">"El placard del dormitorio quedó increíble. Aprovechan hasta el último rincón y el precio fue muy razonable para la calidad."</p><div class="tauthor"><strong>Martín R.</strong>Palermo, Buenos Aires</div></div>
+    <div class="tcard d3"><div class="tstars"><div class="tstar"></div><div class="tstar"></div><div class="tstar"></div><div class="tstar"></div><div class="tstar"></div></div><p class="ttext">"Ya les encargué tres veces: escritorio, biblioteca y el mueble del baño. Siempre cumplen en tiempo y con excelente calidad."</p><div class="tauthor"><strong>Luciana T.</strong>Villa del Parque, Buenos Aires</div></div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-section sr" id="contacto">
+  <div class="cta-bg-word"><span>Presupuesto</span></div>
+  <div class="cta-inner">
+    <div class="eyebrow">Sin cargo · Sin compromiso</div>
+    <h2>¿Arrancamos<br>con tu <em>proyecto?</em></h2>
+    <p class="cta-sub">Mandanos un WhatsApp con las medidas y el tipo de mueble que necesitás. Te respondemos rápido con un presupuesto claro.</p>
+    <div class="cta-btns">
+      <a href="https://wa.me/5491125002252?text=Hola%20Leo%2C%20quiero%20un%20presupuesto%20para%20un%20mueble%20a%20medida" class="btn-light-cta" target="_blank">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Escribir por WhatsApp
+      </a>
+      <a href="https://www.instagram.com/leomarano.muebles" class="btn-outline-cta" target="_blank">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        Ver Instagram
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ftop">
+    <div>
+      <div class="flogo">
+        <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAEeAR4DASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD7LooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiig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" alt="Leo Marano">
+      </div>
+      <p class="ftagline">Muebles a medida en melamina. Fabricación propia en Buenos Aires. Cocinas, placards, baños y oficinas.</p>
+    </div>
+    <div class="fcol">
+      <h4>Servicios</h4>
+      <ul class="flinks">
+        <li><a href="#servicios">Cocinas & alacenas</a></li>
+        <li><a href="#servicios">Placards & vestidores</a></li>
+        <li><a href="#servicios">Muebles de baño</a></li>
+        <li><a href="#servicios">Escritorios & oficinas</a></li>
+        <li><a href="#servicios">Estanterías</a></li>
+      </ul>
+    </div>
+    <div class="fcol">
+      <h4>Contacto</h4>
+      <ul class="flinks">
+        <li><a href="https://wa.me/5491125002252" target="_blank">+54 9 11 2500-2252</a></li>
+        <li><a href="https://www.instagram.com/leomarano.muebles" target="_blank">@leomarano.muebles</a></li>
+        <li><a href="#nosotros">Buenos Aires, Argentina</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="fbot">
+    <p class="fcopy">© 2026 Leo Marano Muebles · Buenos Aires</p>
+    <p class="fmade">Diseñado y desarrollado por <a href="https://itintegraltech.com" target="_blank">IT-Integral Solutions</a></p>
+  </div>
+</footer>
+
+<script>
+/* NAV scroll */
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 60));
+
+/* Scroll reveal — IntersectionObserver limpio */
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('on');
+      obs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.sr, .sr-l, .sr-r').forEach(el => obs.observe(el));
+
+/* Counters — solo cuando son visibles */
+const cobs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const el = e.target;
+    const target = parseInt(el.dataset.target);
+    const suffix = el.dataset.suffix || '';
+    let n = 0;
+    const step = Math.max(1, target / 60);
+    const timer = setInterval(() => {
+      n += step;
+      if (n >= target) { n = target; clearInterval(timer); }
+      el.textContent = Math.round(n) + suffix;
+    }, 25);
+    cobs.unobserve(el);
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('.counter').forEach(c => cobs.observe(c));
+
+/* Parallax hero image suave — solo scroll */
+const heroImg = document.querySelector('.hero-right img');
+if (heroImg) {
+  window.addEventListener('scroll', () => {
+    const y = Math.min(scrollY * 0.1, 60);
+    heroImg.style.transform = `scale(1) translateY(${y}px)`;
+  }, { passive: true });
+}
+</script>
+</body>
+</html>
